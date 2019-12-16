@@ -8,7 +8,7 @@ import br.com.androidstartermvvm.ui.base.BaseViewModel
 import br.com.androidstartermvvm.ui.base.SingleLiveEvent
 
 class LoginViewModel : BaseViewModel() {
-    private val userRepository: UserRepository = UserRepository()
+    private val userRepository: UserRepository  by lazy {UserRepository()}
     val responseLogin = SingleLiveEvent<Unit>()
 
     fun doLogin(user: String, password: String) = launchWithLoad {
@@ -36,8 +36,6 @@ class LoginViewModel : BaseViewModel() {
     }
 
     private fun saveLocalData(data: AuthenticationResponse?) = launch {
-        data?.let {
-            userRepository.saveUser(it)
-        }
+        data?.let { userRepository.saveUser(it) }
     }
 }

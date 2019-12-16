@@ -12,11 +12,12 @@ abstract class BaseViewModel : ViewModel() {
     val context = SuperApplication.context
 
     fun launch(block: suspend () -> Unit) {
-        viewModelScope.launch { block() }
+        viewModelScope.launch {
+            block()
+        }
     }
 
     fun launchWithLoad(block: suspend () -> Unit) {
-
         viewModelScope.launch {
             loading.value = true
             block()

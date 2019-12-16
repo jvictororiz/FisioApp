@@ -17,7 +17,7 @@ open class ServiceBuilder {
             return Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(apiUrl)
-                .client(RetrofitClient.retrofitReference)
+                .client(RetrofitClient().retrofitReference)
                 .also { builder ->
                     converterFactories?.forEach {
                         builder.addConverterFactory(it)

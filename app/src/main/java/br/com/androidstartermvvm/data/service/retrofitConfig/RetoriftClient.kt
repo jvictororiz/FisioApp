@@ -7,7 +7,7 @@ import retrofit2.Converter
 import java.util.concurrent.TimeUnit
 
 open class RetrofitClient {
-    companion object {
+
     private val interceptors: List<Interceptor> = listOf<Interceptor>(BackendInterceptor())
 
 
@@ -24,7 +24,7 @@ open class RetrofitClient {
         readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
     }.build()
 
-
+    companion object {
         private const val CONNECT_TIMEOUT: Long = 30L
         private const val READ_TIMEOUT: Long = 30L
     }
