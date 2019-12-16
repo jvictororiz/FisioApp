@@ -23,6 +23,7 @@ suspend fun <T> Call<T>.backgroundCall(dispatcher: CoroutineDispatcher): Result<
                 Result.error(response.headers().get("ERROR"))
             }
         } catch (e: Exception) {
+            e.printStackTrace()
             if (e is ConnectException || e is java.net.UnknownHostException) {
                 Result.error<T?>(ConnectException("Seu dispositivo está sem internet."))
             } else {
@@ -33,8 +34,8 @@ suspend fun <T> Call<T>.backgroundCall(dispatcher: CoroutineDispatcher): Result<
 }
 
 suspend fun <T> Call<T>.ifOffline(listenerOffline: () -> T?): Result<T?> {
-    if (AppUtil.isNetworkConnected()) {
-        return withContext(context = AppDispatchers().io) {
+    return if (AppUtil.isNetworkConnected()) {
+        withContext(context = AppDispatchers().io) {
             val response = this@ifOffline.execute()
             if (response.isSuccessful) {
                 Result.success(response.body(), response.code())
@@ -43,7 +44,7 @@ suspend fun <T> Call<T>.ifOffline(listenerOffline: () -> T?): Result<T?> {
             }
         }
     } else {
-        return withContext(context = AppDispatchers().computation) {
+        withContext(context = AppDispatchers().computation) {
             val response = listenerOffline()
             Result.success(response, 0)
         }

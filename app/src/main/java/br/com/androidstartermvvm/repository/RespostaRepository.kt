@@ -12,6 +12,5 @@ class RespostaRepository : BaseRepository() {
         ServiceBuilder.create(RespostaService::class.java)
 
 
-
 }
 

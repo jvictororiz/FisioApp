@@ -1,5 +1,6 @@
 package br.com.androidstartermvvm.viewModel
 
+import br.com.androidstartermvvm.R
 import br.com.androidstartermvvm.data.entities.remote.request.AuthenticationRequest
 import br.com.androidstartermvvm.data.entities.remote.response.AuthenticationResponse
 import br.com.androidstartermvvm.repository.UserRepository
@@ -11,10 +12,20 @@ class LoginViewModel : BaseViewModel() {
     val responseLogin = SingleLiveEvent<Unit>()
 
     fun doLogin(user: String, password: String) = launchWithLoad {
-        val result = userRepository.doLogin(AuthenticationRequest(
-            username = user,
-            password = password
-        ))
+        if (user.isEmpty() || user.length < 5) {
+            error.value = context.getString(R.string.user_invalid)
+            return@launchWithLoad
+        } else if (password.isEmpty() || password.length < 5) {
+            error.value = context.getString(R.string.password_invalid)
+            return@launchWithLoad
+        }
+
+        val result = userRepository.doLogin(
+            AuthenticationRequest(
+                username = user,
+                password = password
+            )
+        )
         if (result.isSuccessful()) {
             val data = result.data?.response
             saveLocalData(data)
@@ -29,5 +40,4 @@ class LoginViewModel : BaseViewModel() {
             userRepository.saveUser(it)
         }
     }
-
 }

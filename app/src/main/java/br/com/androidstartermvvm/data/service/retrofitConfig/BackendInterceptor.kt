@@ -1,18 +1,21 @@
 package br.com.androidstartermvvm.data.service.retrofitConfig
 
 import br.com.androidstartermvvm.data.entities.remote.response.BaseResponse
+import br.com.androidstartermvvm.repository.UserRepository
 import com.google.gson.Gson
 import okhttp3.Interceptor
 import okhttp3.Response
 
 class BackendInterceptor : Interceptor {
+    private val userRepository: UserRepository = UserRepository()
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
         val builder = request.newBuilder()
-        builder.addHeader(
-            HEADER_AUTHORIZATION, "teste"
-        )
+
+        userRepository.getUser().token?.let {
+            builder.addHeader(HEADER_AUTHORIZATION, it)
+        }
 
         val response = chain.proceed(builder.build())
         val json = response.body()?.source()?.buffer()?.readString(Charsets.UTF_8)

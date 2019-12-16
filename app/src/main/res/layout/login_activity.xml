@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <View
         android:id="@+id/top_view"
@@ -84,29 +85,55 @@
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <androidx.appcompat.widget.AppCompatButton
+            <TextView
+                android:id="@+id/tv_error"
+                android:paddingLeft="6dp"
+                android:paddingRight="6dp"
+                android:textColor="@color/design_default_color_error"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/btn_login"
+                android:layout_width="wrap_content"
+                android:gravity="center"
+                android:textSize="12sp"
+                tools:text="Erro ao logar"
+                android:layout_height="wrap_content"/>
+
+
+
+            <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
                 android:id="@+id/btn_login"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:background="@drawable/shape_button_circle_gradient"
                 android:layout_marginTop="65dp"
+                android:textColor="@color/white"
                 android:text="@string/login"
+                app:spinning_bar_color="@color/white"
                 android:paddingStart="50dp"
                 android:paddingEnd="50dp"
+                app:initialCornerAngle="45dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintBottom_toTopOf="@+id/tv_register"
                 app:layout_constraintTop_toBottomOf="@+id/layout_input_password"
                 android:layout_width="wrap_content"
                 android:layout_marginBottom="15dp"
-                android:layout_height="55dp"/>
+                android:layout_height="55dp" />
 
             <TextView
                 android:id="@+id/tv_register"
+                android:paddingLeft="6dp"
+                android:paddingRight="6dp"
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:text="@string/n_o_possui_uma_conta_cadastre_aqui"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_width="wrap_content"
-                android:gravity="start|center"
-                android:layout_height="28dp"/>
+                android:gravity="center"
+                android:textSize="12sp"
+                android:layout_height="wrap_content"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

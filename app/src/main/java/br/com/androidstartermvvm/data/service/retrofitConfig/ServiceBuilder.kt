@@ -4,10 +4,10 @@ import br.com.androidstartermvvm.BuildConfig
 import okhttp3.Interceptor
 import retrofit2.Converter
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 open class ServiceBuilder {
     companion object {
-        private val interceptors: List<Interceptor> = listOf<Interceptor>(BackendInterceptor())
         private val converterFactories: Array<Converter.Factory>? = null
         private val retrofit by lazy<Retrofit> {
             retrofitBuilder()
@@ -15,12 +15,10 @@ open class ServiceBuilder {
         private const val apiUrl: String = BuildConfig.SERVER_URL
         private fun retrofitBuilder(): Retrofit.Builder {
             return Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(apiUrl)
                 .client(RetrofitClient.retrofitReference)
                 .also { builder ->
-                    interceptors.forEach {
-                        RetrofitClient.retrofitReference.interceptors().add(it)
-                    }
                     converterFactories?.forEach {
                         builder.addConverterFactory(it)
                     }

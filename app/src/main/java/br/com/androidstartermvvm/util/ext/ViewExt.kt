@@ -1,11 +1,17 @@
-package br.com.bb.oewallet.extension
+package br.com.androidstartermvvm.util.ext
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
 import android.view.animation.LinearInterpolator
 import androidx.fragment.app.Fragment
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
+import br.com.androidstartermvvm.R
+import br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+
 
 const val ANIM_DURATION_LONG = 500L
 
@@ -50,4 +56,20 @@ fun View.hide(duration: Long = 200, onAnimationEnd: (() -> Unit)? = null) {
 
             }
         }
+}
+
+fun CircularProgressButton.showLoad() {
+    startAnimation()
+}
+
+fun CircularProgressButton.hideLoad() {
+    revertAnimation()
+}
+
+fun CircularProgressButton.successLoad(color: Int = R.color.white) {
+    (R.drawable.ic_check_white).getBitmapFromVectorDrawable(context)?.let {
+        doneLoadingAnimation(
+        color, it
+        )
+    }
 }
