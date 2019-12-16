@@ -11,13 +11,7 @@ class RespostaRepository : BaseRepository() {
     private val respostaService: RespostaService =
         ServiceBuilder.create(RespostaService::class.java)
 
-    suspend fun listarResposta() =
-        respostaService.listarResposta().ifOffline {
-            userDao.getAll()
-        }
 
-    suspend fun detailResposta(id: Int) =
-        respostaService.detailResposta(id).backgroundCall(dispatchers.value.io)
 
 }
 

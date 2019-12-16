@@ -30,12 +30,12 @@ class HomeFragment(override val fragmentTag: String) : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
 
         viewModel.listResposta()
-        viewModel.resposta.observe(this, Observer {
-        })
-
-        viewModel.respostaDetalhe.observe(this, Observer {
-
-        })
+//        viewModel.resposta.observe(this, Observer {
+//        })
+//
+//        viewModel.respostaDetalhe.observe(this, Observer {
+//
+//        })
 
     }
 

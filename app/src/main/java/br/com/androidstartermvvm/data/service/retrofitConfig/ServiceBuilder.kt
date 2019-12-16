@@ -1,6 +1,6 @@
 package br.com.androidstartermvvm.data.service.retrofitConfig
 
-import br.com.androidstartermvvm.data.service.RespostaService
+import br.com.androidstartermvvm.BuildConfig
 import okhttp3.Interceptor
 import retrofit2.Converter
 import retrofit2.Retrofit
@@ -9,9 +9,10 @@ open class ServiceBuilder {
     companion object {
         private val interceptors: List<Interceptor> = listOf<Interceptor>(BackendInterceptor())
         private val converterFactories: Array<Converter.Factory>? = null
-        private val retrofit by lazy<Retrofit> { retrofitBuilder()
+        private val retrofit by lazy<Retrofit> {
+            retrofitBuilder()
             .build() }
-        private const val apiUrl: String = "fdsa"
+        private const val apiUrl: String = BuildConfig.SERVER_URL
         private fun retrofitBuilder(): Retrofit.Builder {
             return Retrofit.Builder()
                 .baseUrl(apiUrl)

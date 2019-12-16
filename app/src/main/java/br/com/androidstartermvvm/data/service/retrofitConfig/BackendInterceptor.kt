@@ -1,30 +1,32 @@
 package br.com.androidstartermvvm.data.service.retrofitConfig
 
-import br.com.androidstartermvvm.data.entities.remote.response.ErroHttp
+import br.com.androidstartermvvm.data.entities.remote.response.BaseResponse
 import com.google.gson.Gson
 import okhttp3.Interceptor
 import okhttp3.Response
-import java.lang.Exception
 
-class BackendInterceptor: Interceptor {
+class BackendInterceptor : Interceptor {
+
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
         val builder = request.newBuilder()
         builder.addHeader(
-            HEADER_AUTHORIZATION, ""
+            HEADER_AUTHORIZATION, "teste"
         )
 
         val response = chain.proceed(builder.build())
-
-        if (!response.isSuccessful) {
-            val json = response.body()?.source()?.buffer()?.readString(Charsets.UTF_8)
+        val json = response.body()?.source()?.buffer()?.readString(Charsets.UTF_8)
+        val result = Gson().fromJson(json, BaseResponse::class.java)
+        if (!response.isSuccessful || !result.status.success) {
             try {
-                val error = Gson().fromJson(json, ErroHttp::class.java)
+                when (result.status.code) {
+                    401 -> {
+                    }
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
-
         return response
     }
 

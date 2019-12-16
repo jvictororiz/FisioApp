@@ -1,8 +1,8 @@
-package br.com.bb.oewallet.ui
+package br.com.androidstartermvvm.ui.base
 
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import br.com.androidstartermvvm.R
+import br.com.bb.oewallet.ui.BaseFragment
 
 abstract class BaseActivity : AppCompatActivity() {
     fun replace(fragment: BaseFragment, addToBackstack: Boolean? = false) {

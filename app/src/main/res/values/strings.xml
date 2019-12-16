@@ -5,4 +5,5 @@
     <string name="esqueci_a_senha">Esqueci a senha</string>
     <string name="cadastrar">Cadastrar</string>
     <string name="username">username</string>
+    <string name="n_o_possui_uma_conta_cadastre_aqui">Não possui uma conta? Cadastre aqui.</string>
 </resources>

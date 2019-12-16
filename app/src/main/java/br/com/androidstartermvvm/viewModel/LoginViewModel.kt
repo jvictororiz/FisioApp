@@ -1,30 +1,32 @@
 package br.com.androidstartermvvm.viewModel
 
-import br.com.androidstartermvvm.data.entities.remote.response.Product
+import br.com.androidstartermvvm.data.entities.remote.request.AuthenticationRequest
+import br.com.androidstartermvvm.data.entities.remote.response.AuthenticationResponse
 import br.com.androidstartermvvm.repository.UserRepository
 import br.com.androidstartermvvm.ui.base.BaseViewModel
 import br.com.androidstartermvvm.ui.base.SingleLiveEvent
 
 class LoginViewModel : BaseViewModel() {
-    private val respostaRepository: UserRepository = UserRepository()
-    val actionListProduct = SingleLiveEvent<List<Product>>()
+    private val userRepository: UserRepository = UserRepository()
+    val responseLogin = SingleLiveEvent<Unit>()
 
     fun doLogin(user: String, password: String) = launchWithLoad {
-        val result = respostaRepository.doLogin(user, password)
+        val result = userRepository.doLogin(AuthenticationRequest(
+            username = user,
+            password = password
+        ))
         if (result.isSuccessful()) {
-            val data = result.data
-            findAllProducts(data?.id)
+            val data = result.data?.response
+            saveLocalData(data)
+
         } else {
             error.value = result.throwable?.message
         }
     }
 
-    fun findAllProducts(idUser:Long?) = launchWithLoad {
-        val result = idUser?.toInt()?.let { respostaRepository.findAllProducts(it) }
-        if (result != null && result.isSuccessful()) {
-            actionListProduct.value = result.data
-        } else {
-            error.value = result?.throwable?.message
+    private fun saveLocalData(data: AuthenticationResponse?) = launch {
+        data?.let {
+            userRepository.saveUser(it)
         }
     }
 
