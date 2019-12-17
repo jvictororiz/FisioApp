@@ -5,9 +5,13 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Build
+import android.os.Bundle
+import android.os.PersistableBundle
+import android.view.WindowManager
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import br.com.fisioapp.R
 import br.com.fisioapp.ui.activity.LoginActivity
@@ -48,7 +52,6 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
 
-
     fun replace(fragment: BaseFragment, addToBackstack: Boolean? = false) {
         val fg = supportFragmentManager.findFragmentByTag(fragment.fragmentTag) ?: fragment
         supportFragmentManager.beginTransaction()
@@ -61,6 +64,7 @@ abstract class BaseActivity : AppCompatActivity() {
             .replace(R.id.container, fg, fragment.fragmentTag)
             .commit()
     }
+
 
     fun startActivityAnim(intent:Intent){
         startActivity(intent)

@@ -11,15 +11,16 @@ import br.com.fisioapp.viewModel.SplashViewModel
 
 class SplashActivity : BaseActivity() {
     private val viewModel: SplashViewModel by lazy { ViewModelProvider(this).get(SplashViewModel::class.java) }
-    private val TIME_TO_END_SPLASH = 700L
+    private val END_TIME = 700L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         subscribe()
-        viewModel.findStatus()
-            Handler().postDelayed({
-        }, TIME_TO_END_SPLASH)
+
+        Handler().postDelayed({
+            viewModel.findStatus()
+        }, END_TIME)
     }
 
     private fun subscribe() {
