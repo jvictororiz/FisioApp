@@ -34,7 +34,6 @@ class SplashActivity : BaseActivity() {
         viewModel.toAdmin.observe(this, Observer {
             startActivityAnim(Intent(this, AdminHomeActivity::class.java))
             finish()
-
         })
     }
 }

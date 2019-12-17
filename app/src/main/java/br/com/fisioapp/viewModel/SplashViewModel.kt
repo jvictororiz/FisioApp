@@ -24,7 +24,6 @@ class SplashViewModel : BaseViewModel() {
             when(user.status()){
                 StatusUser.ADMIN-> toAdmin.call()
                 StatusUser.CLIENT-> toAdmin.call()
-
             }
         }
     }

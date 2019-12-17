@@ -33,9 +33,20 @@ class LoginActivity : BaseActivity() {
             tv_error.text = it
         })
 
-        viewModel.successLogin.observe(this, Observer {
+        viewModel.toLogin.observe(this, Observer {
             btn_login.successLoad()
             startActivityAnim(Intent(this, LoginActivity::class.java))
+            finish()
+        })
+        viewModel.toUser.observe(this, Observer {
+            btn_login.successLoad()
+            startActivityAnim(Intent(this, UserHomeActivity::class.java))
+            finish()
+
+        })
+        viewModel.toAdmin.observe(this, Observer {
+            btn_login.successLoad()
+            startActivityAnim(Intent(this, AdminHomeActivity::class.java))
             finish()
         })
 
