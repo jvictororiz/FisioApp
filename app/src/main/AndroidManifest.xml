@@ -1,30 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:dist="http://schemas.android.com/apk/distribution"
-    package="br.com.androidstartermvvm">
+    package="br.com.fisioapp">
 
     <dist:module dist:instant="true" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".SuperApplication"
         android:allowBackup="false"
-        android:networkSecurityConfig="@xml/network_security_config"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/StyleLogged">
+        <activity android:name=".ui.activity.AdminHomeActivity"></activity>
+        <activity android:name=".ui.activity.UserHomeActivity" />
         <activity
-            android:theme="@style/StyleLogin"
-            android:name=".ui.activity.LoginActivity">
+            android:name=".ui.activity.SplashActivity"
+            android:theme="@style/StyleLogin">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.activity.LoginActivity"
+            android:theme="@style/StyleLogin" />
     </application>
 
 </manifest>
