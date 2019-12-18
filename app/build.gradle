@@ -83,7 +83,7 @@ dependencies {
 
     // Layout
     implementation 'br.com.simplepass:loading-button-android:2.2.0'
-
+    implementation 'com.rishabhharit.roundedimageview:RoundedImageView:0.8.4'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
