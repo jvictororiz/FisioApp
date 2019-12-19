@@ -11,7 +11,7 @@
     <string name="sessao_expirada">Sessão expirada</string>
     <string name="msg_sessao_expirada">Sua sessão expirou.\nVocê será redirecionado para a tela de autenticação, onde poderá informar sua senha e voltar a utilizar o aplicativo.</string>
     <string name="search_text">Buscar por nome</string>
-    <string name="adicionar">Adicionar Cliente</string>
+    <string name="adicionar">Adicionar cliente</string>
     <string name="treinos">Treinos</string>
     <string name="client">Clientes</string>
     <string name="apresentation">Olá,%1$s .\nDeseja adicionar \nalgum cliente? </string>
