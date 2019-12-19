@@ -31,7 +31,7 @@ class LoginViewModel : BaseViewModel() {
             )
         )
         if (result.isSuccessful()) {
-            val response = result.data?.response
+            val response = result.data
             saveLocalData(response)
             if(response == null){
                 toLogin.call()
@@ -43,7 +43,7 @@ class LoginViewModel : BaseViewModel() {
             }
 
         } else {
-            error.value = result.throwable?.message
+            error.value = result.errorMessage()
         }
     }
 

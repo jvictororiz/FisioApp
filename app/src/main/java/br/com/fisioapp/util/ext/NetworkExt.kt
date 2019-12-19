@@ -3,6 +3,7 @@ package br.com.bb.oewallet.extension
 import br.com.fisioapp.data.entities.local.Result
 import br.com.fisioapp.util.AppDispatchers
 import br.com.fisioapp.util.ext.AppUtil
+import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import retrofit2.Call
@@ -21,7 +22,8 @@ suspend fun <T> Call<T>.backgroundCall(dispatcher: CoroutineDispatcher): Result<
                 Result.success(response.body(), response.code())
             }
             else {
-                Result.error(response.headers().get("ERROR"))
+                val error = Gson().fromJson(response.errorBody()?.string(), ErrorDefault::class.java)
+                Result.error(error.message)
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -51,4 +53,6 @@ suspend fun <T> Call<T>.ifOffline(listenerOffline: () -> T?): Result<T?> {
         }
     }
 }
+
+data class ErrorDefault  (val message:String)
 

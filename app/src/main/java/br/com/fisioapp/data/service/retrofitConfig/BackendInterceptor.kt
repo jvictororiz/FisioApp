@@ -3,7 +3,6 @@ package br.com.fisioapp.data.service.retrofitConfig
 import android.content.Intent
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import br.com.fisioapp.SuperApplication
-import br.com.fisioapp.data.entities.remote.response.BaseResponse
 import br.com.fisioapp.repository.UserRepository
 import br.com.fisioapp.ui.base.BaseActivity
 import com.google.gson.Gson
@@ -22,19 +21,19 @@ class BackendInterceptor : Interceptor {
 
         val response = chain.proceed(request.build())
         val json = response.peekBody(Long.MAX_VALUE).string()
-        val result = Gson().fromJson(json, BaseResponse::class.java)
-        if (!response.isSuccessful || !result.status.success) {
-            try {
-                when (result.status.code) {
-                    401 -> {
-                        val intent = Intent(BaseActivity.ACTION_ERROR_UNAUTHORIZED)
-                        LocalBroadcastManager.getInstance(SuperApplication.context).sendBroadcast(intent)
-                    }
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
+
+//        if (!response.isSuccessful || !result.status.success) {
+//            try {
+//                when (result.status.code) {
+//                    401 -> {
+//                        val intent = Intent(BaseActivity.ACTION_ERROR_UNAUTHORIZED)
+//                        LocalBroadcastManager.getInstance(SuperApplication.context).sendBroadcast(intent)
+//                    }
+//                }
+//            } catch (e: Exception) {
+//                e.printStackTrace()
+//            }
+//        }
         return response
     }
 

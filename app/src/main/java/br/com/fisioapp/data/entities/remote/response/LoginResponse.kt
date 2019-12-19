@@ -10,6 +10,11 @@ data class LoginResponse(
     @PrimaryKey var username: String
 )
 
+data class TokenObject(
+    val status:Int,
+    val  username: String
+)
+
 enum class StatusUser(val code: Int) {
     ADMIN(0),
     CLIENT(1);

@@ -1,9 +1,9 @@
 package br.com.fisioapp.util.ext
 
 import android.util.Base64
-import br.com.fisioapp.data.entities.remote.response.BaseResponse
 import br.com.fisioapp.data.entities.remote.response.LoginResponse
 import br.com.fisioapp.data.entities.remote.response.StatusUser
+import br.com.fisioapp.data.entities.remote.response.TokenObject
 import com.google.gson.Gson
 import java.math.BigDecimal
 import java.nio.charset.Charset
@@ -49,8 +49,8 @@ fun String?.toBigDECIMAL(): BigDecimal? {
 fun LoginResponse.status(): StatusUser? {
     return try {
         val decode = Base64.decode(token?.split(".")?.get(1), Base64.DEFAULT).toString(Charset.defaultCharset())
-        val status = Gson().fromJson(decode, BaseResponse::class.java).status
-        return StatusUser.fromCode(status.code)
+        val status = Gson().fromJson(decode, TokenObject::class.java).status
+        return StatusUser.fromCode(status)
     } catch (ex: java.lang.Exception) {
         ex.printStackTrace()
         null
