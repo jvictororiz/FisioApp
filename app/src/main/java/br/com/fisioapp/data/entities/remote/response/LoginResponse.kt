@@ -12,7 +12,7 @@ data class LoginResponse(
 
 data class TokenObject(
     val status:Int,
-    val  username: String
+    val  name: String
 )
 
 enum class StatusUser(val code: Int) {

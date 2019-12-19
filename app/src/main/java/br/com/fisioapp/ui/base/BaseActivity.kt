@@ -5,17 +5,15 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Build
-import android.os.Bundle
-import android.os.PersistableBundle
-import android.view.WindowManager
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import br.com.fisioapp.R
-import br.com.fisioapp.ui.activity.LoginActivity
+import br.com.fisioapp.ui.activity.LoginAndRegisterActivity
 import br.com.bb.oewallet.ui.BaseFragment
+import br.com.fisioapp.ui.activity.ProfileActivity
+import kotlinx.android.synthetic.main.toolbar_home.*
 
 abstract class BaseActivity : AppCompatActivity() {
     private val unauthorizedFilter by lazy {
@@ -23,7 +21,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
     private val unauthorizedReceiver = object : BroadcastReceiver() {
         private fun startLoginActivity(ctx: Context) {
-            startActivity(Intent(ctx, LoginActivity::class.java).apply {
+            startActivity(Intent(ctx, LoginAndRegisterActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             })
         }
@@ -51,11 +49,21 @@ abstract class BaseActivity : AppCompatActivity() {
             unauthorizedReceiver, unauthorizedFilter)
     }
 
+    fun setUpToolbar(title:String){
+        toolbar_back.setOnClickListener { super.onBackPressed() }
+        toolbar_profile.setOnClickListener {
+            startActivityAnim(Intent(this, ProfileActivity::class.java))
+        }
+        toolbar_title.text = title
+    }
+
 
     fun replace(fragment: BaseFragment, addToBackstack: Boolean? = false) {
         val fg = supportFragmentManager.findFragmentByTag(fragment.fragmentTag) ?: fragment
+
         supportFragmentManager.beginTransaction()
             .also {
+                it.setCustomAnimations(R.anim.slide_in, R.anim.slide_out)
                 if (addToBackstack == true) {
                     it.addToBackStack(fragment.fragmentTag)
                 }

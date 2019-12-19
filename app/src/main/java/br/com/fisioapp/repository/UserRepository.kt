@@ -15,6 +15,9 @@ class UserRepository : BaseRepository() {
     suspend fun doLogin(authenticationRequest: AuthenticationRequest) =
         userService.doLogin(authenticationRequest).backgroundCall(dispatchers.value.io)
 
+    suspend fun findClients() =
+        userService.findClients().backgroundCall(dispatchers.value.io)
+
 
     fun saveUser(loginResponse: LoginResponse) =
         userDao?.insert(loginResponse)

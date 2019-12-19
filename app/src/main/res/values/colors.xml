@@ -6,5 +6,6 @@
     <color name="background_gradient_init">#9849e5</color>
     <color name="background_gradient_final">#f36969</color>
     <color name="white">#fff</color>
-    <color name="colorLetter">#585858</color>
+    <color name="colorLetter">#9C9292</color>
+    <color name="gray_low">#289849E5</color>
 </resources>

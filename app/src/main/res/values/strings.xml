@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Fisio App</string>
     <string name="login">LOGIN</string>
-    <string name="senha">Senha</string>
+    <string name="password">Senha</string>
     <string name="esqueci_a_senha">Esqueci a senha</string>
     <string name="cadastrar">Cadastrar</string>
     <string name="username">Username</string>
@@ -10,4 +10,20 @@
     <string name="password_invalid">Senha inválida</string>
     <string name="sessao_expirada">Sessão expirada</string>
     <string name="msg_sessao_expirada">Sua sessão expirou.\nVocê será redirecionado para a tela de autenticação, onde poderá informar sua senha e voltar a utilizar o aplicativo.</string>
+    <string name="search_text">Buscar por nome</string>
+    <string name="adicionar">Adicionar Cliente</string>
+    <string name="treinos">Treinos</string>
+    <string name="client">Clientes</string>
+    <string name="apresentation">Olá,%1$s .\nDeseja adicionar \nalgum cliente? </string>
+    <string name="empty_treinos">Você ainda não registrou nenhum treino.</string>
+    <string name="empty_clients">Você ainda não possui nenhum cliente</string>
+    <string name="reload">Recarregar</string>
+    <string name="title_home_admin">Administradora</string>
+    <string name="total_itens">(%1$s)</string>
+    <string name="save">Salvar</string>
+    <string name="possui_conta">Já possui uma conta?\nLogin aqui</string>
+    <string name="dados">Meus Dados</string>
+    <string name="name">Nome</string>
+    <string name="confirm_password">Confirmação de senha</string>
+    <string name="adicionar_treino">Adicionar treino</string>
 </resources>

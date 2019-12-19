@@ -12,8 +12,8 @@ import java.util.concurrent.TimeUnit
 open class ServiceBuilder {
     companion object {
         private const val API_URL: String = BuildConfig.SERVER_URL
-        private const val CONNECT_TIMEOUT: Long = 30L
-        private const val READ_TIMEOUT: Long = 30L
+        private const val CONNECT_TIMEOUT: Long = 8L
+        private const val READ_TIMEOUT: Long = 8L
 
         private val converterFactories: Array<Converter.Factory>? = null
         private val retrofit by lazy<Retrofit> {

@@ -1,5 +1,6 @@
 package br.com.fisioapp.ui.base
 
+import androidx.annotation.IntegerRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.fisioapp.SuperApplication
@@ -25,6 +26,8 @@ abstract class BaseViewModel : ViewModel() {
         }
 
     }
+
+    fun getString(idString: Int): String = SuperApplication.context.getString(idString)
 
 
 }

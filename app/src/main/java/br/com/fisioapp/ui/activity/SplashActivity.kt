@@ -25,11 +25,11 @@ class SplashActivity : BaseActivity() {
 
     private fun subscribe() {
         viewModel.toLogin.observe(this, Observer {
-            startActivityAnim(Intent(this, LoginActivity::class.java))
+            startActivityAnim(Intent(this, LoginAndRegisterActivity::class.java))
             finish()
         })
         viewModel.toUser.observe(this, Observer {
-            startActivityAnim(Intent(this, UserHomeActivity::class.java))
+            startActivityAnim(Intent(this, ClientHomeActivity::class.java))
             finish()
 
         })
