@@ -8,6 +8,6 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class UserResponse(
-    var id: Long?,
+     var username: String,
      var name: String
 ):Parcelable

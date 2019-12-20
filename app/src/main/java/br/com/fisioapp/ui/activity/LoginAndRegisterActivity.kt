@@ -17,6 +17,7 @@ class LoginAndRegisterActivity : BaseActivity() {
         RegisterUserFragment.newInstance()
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_and_register_activity)
@@ -26,16 +27,15 @@ class LoginAndRegisterActivity : BaseActivity() {
     fun selectTypeFragment(type: Int) {
         when (type) {
             MODE_LOGIN -> {
-                replace(loginFragment, false)
+                replace(loginFragment, true)
             }
 
             MODE_REGISTER -> {
-                replace(registerFragment, true)
+                replace(registerFragment, false)
             }
             MODE_EDIT_PROFILE -> {
                 intent?.extras?.getParcelable<UserResponse>(EXTRA_USER_EDIT)?.let {
-                    replace(registerFragment, true)
-                    registerFragment.apply { viewModel.prepareToEdit(it) }
+                    replace(RegisterUserFragment.newInstance(it))
                 }
             }
         }
@@ -51,7 +51,7 @@ class LoginAndRegisterActivity : BaseActivity() {
         fun startModeEdit(context: Context, userResponse: UserResponse){
             val intent = Intent(context, LoginAndRegisterActivity::class.java).apply {
                 putExtra(EXTRA_USER_EDIT, userResponse)
-                putExtra(EXTRAS_TYPE_SCREEN, EXTRAS_TYPE_SCREEN)
+                putExtra(EXTRAS_TYPE_SCREEN, MODE_EDIT_PROFILE)
             }
             (context as BaseActivity).startActivityAnim(intent)
         }

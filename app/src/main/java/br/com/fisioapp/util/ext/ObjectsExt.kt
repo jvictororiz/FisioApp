@@ -1,5 +1,6 @@
 package br.com.fisioapp.util.ext
 
+import android.text.format.DateUtils
 import android.util.Base64
 import br.com.fisioapp.data.entities.remote.response.LoginResponse
 import br.com.fisioapp.data.entities.remote.response.StatusUser
@@ -49,7 +50,7 @@ fun String?.toBigDECIMAL(): BigDecimal? {
 fun LoginResponse.status(): StatusUser? {
     return try {
         val decode = Base64.decode(token?.split(".")?.get(1), Base64.DEFAULT).toString(Charset.defaultCharset())
-        return Gson().fromJson(decode, TokenObject::class.java).status
+        return (Gson().fromJson(decode, TokenObject::class.java).status)
     } catch (ex: java.lang.Exception) {
         ex.printStackTrace()
         null
@@ -58,11 +59,21 @@ fun LoginResponse.status(): StatusUser? {
 
 fun LoginResponse.name(): String {
     return try {
-        val decode = Base64.decode(token?.split(".")?.get(1), Base64.DEFAULT)
-            .toString(Charset.defaultCharset())
-        Gson().fromJson(decode, TokenObject::class.java).name
+        val decode = Base64.decode(token?.split(".")?.get(1), Base64.DEFAULT).toString(Charset.defaultCharset())
+        (Gson().fromJson(decode, TokenObject::class.java).name)
     } catch (ex: java.lang.Exception) {
         ex.printStackTrace()
         ""
+    }
+}
+
+fun LoginResponse.expiredAuthorization(): Boolean{
+    return try {
+        val decode = Base64.decode(token?.split(".")?.get(1), Base64.DEFAULT).toString(Charset.defaultCharset())
+        val token = Gson().fromJson(decode, TokenObject::class.java)
+        System.currentTimeMillis() > Date(token.exp.toLong()).time
+    } catch (ex: java.lang.Exception) {
+        ex.printStackTrace()
+        true
     }
 }

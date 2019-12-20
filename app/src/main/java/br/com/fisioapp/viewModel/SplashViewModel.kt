@@ -1,13 +1,10 @@
 package br.com.fisioapp.viewModel
 
-import android.os.Handler
-import br.com.fisioapp.R
-import br.com.fisioapp.data.entities.remote.request.AuthenticationRequest
-import br.com.fisioapp.data.entities.remote.response.LoginResponse
 import br.com.fisioapp.data.entities.remote.response.StatusUser
 import br.com.fisioapp.repository.UserRepository
 import br.com.fisioapp.ui.base.BaseViewModel
 import br.com.fisioapp.ui.base.SingleLiveEvent
+import br.com.fisioapp.util.ext.expiredAuthorization
 import br.com.fisioapp.util.ext.status
 
 class SplashViewModel : BaseViewModel() {
@@ -17,8 +14,8 @@ class SplashViewModel : BaseViewModel() {
     val toLogin = SingleLiveEvent<Unit>()
 
     fun findStatus() = launch {
-        val user = userRepository.getUser()
-        if(user == null){
+        val user = userRepository.persistenceFindUserr()
+        if(user == null || !user.expiredAuthorization()){
             toLogin.call()
         }else{
             when(user.status()){

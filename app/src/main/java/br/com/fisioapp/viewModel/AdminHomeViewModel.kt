@@ -16,6 +16,10 @@ class AdminHomeViewModel : BaseViewModel() {
 
     val nameClient = SingleLiveEvent<String>()
 
+    val toLogin = SingleLiveEvent<Any?>()
+
+    val datasUser = SingleLiveEvent<UserResponse>()
+
     val treinos = SingleLiveEvent<List<TreinoResponse>>()
     val loadTreinos = SingleLiveEvent<Boolean>()
     val errorTreinos = SingleLiveEvent<String>()
@@ -27,7 +31,7 @@ class AdminHomeViewModel : BaseViewModel() {
     val totalItensClients = SingleLiveEvent<Int>()
 
     init {
-        nameClient.value = userRepository.getUser()?.name()
+        nameClient.value = userRepository.persistenceFindUserr()?.name()
         findClients()
         findTreinos()
     }
@@ -63,5 +67,20 @@ class AdminHomeViewModel : BaseViewModel() {
         }
         loadTreinos.value = false
 
+    }
+
+    fun exit() {
+        userRepository.persistenceDeleteUser()
+        toLogin.call()
+    }
+
+
+    fun findDataUser() = launch{
+        val dataUser = userRepository.findData()
+        if(dataUser.isSuccessful()){
+            datasUser.value = dataUser.data
+        }else{
+
+        }
     }
 }

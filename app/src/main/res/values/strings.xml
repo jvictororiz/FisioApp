@@ -14,7 +14,7 @@
     <string name="adicionar">Adicionar cliente</string>
     <string name="treinos">Treinos</string>
     <string name="client">Clientes</string>
-    <string name="apresentation">Olá,%1$s .\nDeseja adicionar \nalgum cliente? </string>
+    <string name="apresentation">Olá, %1$s .\nDeseja adicionar \nalgum cliente novo? </string>
     <string name="empty_treinos">Você ainda não registrou nenhum treino.</string>
     <string name="empty_clients">Você ainda não possui nenhum cliente</string>
     <string name="reload">Recarregar</string>

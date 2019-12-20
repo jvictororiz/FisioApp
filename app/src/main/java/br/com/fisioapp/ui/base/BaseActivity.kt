@@ -12,6 +12,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import br.com.fisioapp.R
 import br.com.fisioapp.ui.activity.LoginAndRegisterActivity
 import br.com.bb.oewallet.ui.BaseFragment
+import br.com.fisioapp.data.entities.remote.response.UserResponse
 import br.com.fisioapp.ui.activity.ProfileActivity
 import kotlinx.android.synthetic.main.toolbar_home.*
 
@@ -49,10 +50,12 @@ abstract class BaseActivity : AppCompatActivity() {
             unauthorizedReceiver, unauthorizedFilter)
     }
 
-    fun setUpToolbar(title:String){
-        toolbar_back.setOnClickListener { super.onBackPressed() }
+    fun setUpToolbar(title:String, click:()->Unit){
+        toolbar_back.setOnClickListener {
+            onBackPressed()
+        }
         toolbar_profile.setOnClickListener {
-            startActivityAnim(Intent(this, ProfileActivity::class.java))
+           click.invoke()
         }
         toolbar_title.text = title
     }
@@ -73,6 +76,12 @@ abstract class BaseActivity : AppCompatActivity() {
             .commit()
     }
 
+    fun startActivityClearOthers(intent: Intent){
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+
+    }
 
     fun startActivityAnim(intent:Intent){
         startActivity(intent)

@@ -43,6 +43,6 @@ class LoginViewModel : BaseViewModel() {
     }
 
     private fun saveLocalData(data: LoginResponse?) = launch {
-        data?.let { userRepository.saveUser(it) }
+        data?.let { userRepository.persistenceSaveUser(it) }
     }
 }

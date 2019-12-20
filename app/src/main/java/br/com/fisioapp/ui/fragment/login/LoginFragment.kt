@@ -53,24 +53,39 @@ class LoginFragment(override val fragmentTag: String) : BaseLoginFragment() {
     }
 
     private fun subscribe() {
-        viewModel.error.observe( viewLifecycleOwner, Observer {
+        viewModel.error.observe(viewLifecycleOwner, Observer {
             tv_error.text = it
         })
 
         viewModel.toClient.observe(viewLifecycleOwner, Observer {
             btn_login.successLoad()
-            (activity as BaseActivity).startActivityAnim(Intent(activity, ClientHomeActivity::class.java))
+            (activity as BaseActivity).startActivityAnim(
+                Intent(
+                    activity,
+                    ClientHomeActivity::class.java
+                )
+            )
             activity?.finish()
 
         })
         viewModel.toAdmin.observe(viewLifecycleOwner, Observer {
             btn_login.successLoad()
-            (activity as BaseActivity).startActivityAnim(Intent(activity, AdminHomeActivity::class.java))
+            (activity as BaseActivity).startActivityAnim(
+                Intent(
+                    activity,
+                    AdminHomeActivity::class.java
+                )
+            )
             activity?.finish()
         })
 
         viewModel.loading.observe(viewLifecycleOwner, Observer {
-            if (it) btn_login.showLoad() else btn_login.hideLoad()
+            if (it) {
+                tv_error.text=""
+                btn_login.showLoad()
+            } else {
+                btn_login.hideLoad()
+            }
         })
     }
 

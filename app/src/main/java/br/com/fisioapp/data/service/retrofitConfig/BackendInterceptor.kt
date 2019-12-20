@@ -1,11 +1,6 @@
 package br.com.fisioapp.data.service.retrofitConfig
 
-import android.content.Intent
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import br.com.fisioapp.SuperApplication
 import br.com.fisioapp.repository.UserRepository
-import br.com.fisioapp.ui.base.BaseActivity
-import com.google.gson.Gson
 import okhttp3.Interceptor
 import okhttp3.Response
 
@@ -15,7 +10,7 @@ class BackendInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request().newBuilder()
 
-        userRepository.getUser()?.token?.let {
+        userRepository.persistenceFindUserr()?.token?.let {
             request.addHeader(HEADER_AUTHORIZATION, it)
         }
 

@@ -1,5 +1,6 @@
 package br.com.fisioapp.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.SearchView
@@ -11,6 +12,7 @@ import br.com.fisioapp.ui.adapter.TreinoAdapter
 import br.com.fisioapp.ui.base.BaseActivity
 import br.com.fisioapp.viewModel.AdminHomeViewModel
 import kotlinx.android.synthetic.main.activity_admin_home.*
+
 
 class AdminHomeActivity : BaseActivity() {
 
@@ -24,12 +26,16 @@ class AdminHomeActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_home)
-        setUpToolbar(getString(R.string.title_home_admin))
+        setUpToolbar(getString(R.string.title_home_admin)) {
+            viewModel.findDataUser()
+        }
         subscribe()
         setupListenres()
     }
 
     private fun setupListenres() {
+        rv_clients.adapter = clientAdapter
+        rv_treinos.adapter = treinoAdapter
         btn_refresh_clients.setOnClickListener { viewModel.findClients() }
         btn_refresh_treinos.setOnClickListener { viewModel.findTreinos() }
 
@@ -53,8 +59,11 @@ class AdminHomeActivity : BaseActivity() {
     }
 
     private fun subscribe() {
+        viewModel.datasUser.observe(this, Observer {
+            LoginAndRegisterActivity.startModeEdit(this, it)
+        })
         viewModel.nameClient.observe(this, Observer {
-            tv_title.text = getString(R.string.apresentation)
+            tv_title.text = getString(R.string.apresentation, it)
         })
 
         viewModel.loadClients.observe(this, Observer {
@@ -100,5 +109,16 @@ class AdminHomeActivity : BaseActivity() {
             empty_treinos.visibility = View.VISIBLE
             tv_error_treino.text = it
         })
+
+        viewModel.toLogin.observe(this, Observer {
+            val intent = Intent(this, LoginAndRegisterActivity::class.java)
+            startActivityClearOthers(intent)
+        })
+
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        viewModel.exit()
     }
 }
