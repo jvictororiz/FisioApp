@@ -11,17 +11,17 @@ data class LoginResponse(
 )
 
 data class TokenObject(
-    val status:Int,
-    val  name: String
+    val status: StatusUser,
+    val name: String
 )
 
 enum class StatusUser(val code: Int) {
     ADMIN(0),
     CLIENT(1);
 
-    companion object{
+    companion object {
         fun fromCode(number: Int): StatusUser {
-           return  values().associateBy(StatusUser::ordinal).getValue(number)
+            return values().associateBy(StatusUser::ordinal).getValue(number)
         }
     }
 

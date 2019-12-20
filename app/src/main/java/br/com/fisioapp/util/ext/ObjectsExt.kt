@@ -48,10 +48,8 @@ fun String?.toBigDECIMAL(): BigDecimal? {
 
 fun LoginResponse.status(): StatusUser? {
     return try {
-        val decode = Base64.decode(token?.split(".")?.get(1), Base64.DEFAULT)
-            .toString(Charset.defaultCharset())
-        val status = Gson().fromJson(decode, TokenObject::class.java).status
-        return StatusUser.fromCode(status)
+        val decode = Base64.decode(token?.split(".")?.get(1), Base64.DEFAULT).toString(Charset.defaultCharset())
+        return Gson().fromJson(decode, TokenObject::class.java).status
     } catch (ex: java.lang.Exception) {
         ex.printStackTrace()
         null

@@ -19,8 +19,8 @@
         android:theme="@style/StyleLogged">
         <activity android:name=".ui.activity.ProfileActivity" />
         <activity
-            android:name=".ui.activity.AdminHomeActivity"
-            android:theme="@style/StyleLogged">
+            android:name=".ui.activity.LoginAndRegisterActivity"
+            android:theme="@style/StyleLogin">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -29,8 +29,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activity.LoginAndRegisterActivity"
-            android:theme="@style/StyleLogin" />
+            android:name=".ui.activity.AdminHomeActivity"
+            android:theme="@style/StyleLogged" />
         <activity android:name=".ui.activity.SplashActivity" />
         <activity android:name=".ui.activity.ClientHomeActivity" />
     </application>

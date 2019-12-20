@@ -12,8 +12,7 @@ import br.com.fisioapp.util.ext.status
 class LoginViewModel : BaseViewModel() {
     private val userRepository: UserRepository by lazy { UserRepository() }
     val toAdmin = SingleLiveEvent<Unit>()
-    val toUser = SingleLiveEvent<Unit>()
-    val toLogin = SingleLiveEvent<Unit>()
+    val toClient = SingleLiveEvent<Unit>()
 
     fun doLogin(user: String, password: String) = launchWithLoad {
         if (user.isEmpty() || user.length < 5) {
@@ -26,20 +25,16 @@ class LoginViewModel : BaseViewModel() {
 
         val result = userRepository.doLogin(
             AuthenticationRequest(
-                username = user,
+                username = user.replace(" ", ""),
                 password = password
             )
         )
         if (result.isSuccessful()) {
             val response = result.data
             saveLocalData(response)
-            if(response == null){
-                toLogin.call()
-            }else{
-                when(response.status()){
-                    StatusUser.ADMIN-> toAdmin.call()
-                    StatusUser.CLIENT-> toAdmin.call()
-                }
+            when (response?.status()) {
+                StatusUser.ADMIN -> toAdmin.call()
+                StatusUser.CLIENT -> toClient.call()
             }
 
         } else {
