@@ -1,9 +1,11 @@
 package br.com.fisioapp.util.ext
 
-import android.content.Context
 import android.content.Context.CONNECTIVITY_SERVICE
-import androidx.core.content.ContextCompat.getSystemService
 import android.net.ConnectivityManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import br.com.fisioapp.SuperApplication
 
 

@@ -19,7 +19,7 @@
                 android:layout_height="120dp"
                 android:cropToPadding="true"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_profile"
+                android:src="@drawable/ic_person"
                 app:civ_border_color="@color/colorPrimary"
                 app:civ_border_width="1dp"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -72,87 +72,52 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_input_password"
+                android:id="@+id/input_birthday"
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
-                android:hint="@string/password"
+                android:hint="@string/data_nascimento"
                 app:layout_constraintTop_toBottomOf="@+id/layout_input_username">
 
                 <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/edt_password"
+                    android:id="@+id/edt_birthday"
+                    android:inputType="number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="numberPassword"
+                    android:lines="1"
+                    android:maxLines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_phone_number"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:hint="@string/phone_number"
+                app:layout_constraintTop_toBottomOf="@+id/input_birthday">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/edt_phone_number"
+                    android:inputType="number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lines="1"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_input_confirm_password"
+                android:id="@+id/input_job"
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
-                android:hint="@string/confirm_password"
-                app:layout_constraintTop_toBottomOf="@+id/layout_input_password">
+                android:hint="@string/job"
+                app:layout_constraintTop_toBottomOf="@+id/input_phone_number">
 
                 <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/edt_confirm_password"
+                    android:id="@+id/edt_job"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="numberPassword"
+                    android:lines="1"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
-
-
-            <TextView
-                android:id="@+id/tv_error"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingLeft="6dp"
-                android:paddingRight="6dp"
-                android:textColor="@color/design_default_color_error"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toTopOf="@+id/btn_register"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                tools:text="Erro ao logar" />
-
-
-            <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
-                android:id="@+id/btn_register"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="55dp"
-                android:layout_marginTop="65dp"
-                android:layout_marginBottom="15dp"
-                android:background="@drawable/shape_button_circle_gradient"
-                android:paddingStart="50dp"
-                android:paddingEnd="50dp"
-                android:text="@string/save"
-                android:textColor="@color/white"
-                app:initialCornerAngle="45dp"
-                app:layout_constraintBottom_toTopOf="@+id/tv_register"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layout_input_confirm_password"
-                app:spinning_bar_color="@color/white" />
-
-            <TextView
-                android:id="@+id/tv_register"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_black"
-                android:gravity="center"
-                android:paddingLeft="6dp"
-                android:paddingRight="6dp"
-                android:text="@string/possui_conta"
-                android:textAllCaps="false"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

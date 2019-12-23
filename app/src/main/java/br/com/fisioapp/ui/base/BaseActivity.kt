@@ -10,10 +10,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import br.com.fisioapp.R
-import br.com.fisioapp.ui.activity.LoginAndRegisterActivity
+import br.com.fisioapp.ui.activity.LoginActivity
 import br.com.bb.oewallet.ui.BaseFragment
-import br.com.fisioapp.data.entities.remote.response.UserResponse
-import br.com.fisioapp.ui.activity.ProfileActivity
 import kotlinx.android.synthetic.main.toolbar_home.*
 
 abstract class BaseActivity : AppCompatActivity() {
@@ -22,7 +20,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
     private val unauthorizedReceiver = object : BroadcastReceiver() {
         private fun startLoginActivity(ctx: Context) {
-            startActivity(Intent(ctx, LoginAndRegisterActivity::class.java).apply {
+            startActivity(Intent(ctx, LoginActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             })
         }

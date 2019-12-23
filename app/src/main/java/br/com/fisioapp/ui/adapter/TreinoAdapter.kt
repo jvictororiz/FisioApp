@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import br.com.fisioapp.R
 import br.com.fisioapp.data.entities.remote.response.TreinoResponse
-import br.com.fisioapp.data.entities.remote.response.UserResponse
 
 class TreinoAdapter() : RecyclerView.Adapter<TreinoAdapter.ViewHolder>(){
     private var listTreinos: MutableList<TreinoResponse> = mutableListOf()

@@ -5,6 +5,7 @@ import android.util.Base64
 import br.com.fisioapp.data.entities.remote.response.LoginResponse
 import br.com.fisioapp.data.entities.remote.response.StatusUser
 import br.com.fisioapp.data.entities.remote.response.TokenObject
+import br.com.fisioapp.data.entities.remote.response.UserClient
 import com.google.gson.Gson
 import java.math.BigDecimal
 import java.nio.charset.Charset
@@ -55,6 +56,19 @@ fun LoginResponse.status(): StatusUser? {
         ex.printStackTrace()
         null
     }
+}
+
+
+fun UserClient.stepOneValid(): Boolean{
+    return this.name.isNotEmpty() && this.job.isNotEmpty() && this.phoneNumber.isNotEmpty() && this.username.isNotEmpty()
+}
+
+fun UserClient.stepTwoValid(): Boolean{
+    return this.diagnosticosClinico != null && this.diagnosticosFisioteapeutico != null
+}
+
+fun UserClient.stepThreeValid(): Boolean{
+    return this.fichaTecnica != null
 }
 
 fun LoginResponse.name(): String {

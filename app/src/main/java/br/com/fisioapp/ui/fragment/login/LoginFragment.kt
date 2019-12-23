@@ -11,8 +11,9 @@ import androidx.lifecycle.ViewModelProvider
 import br.com.fisioapp.R
 import br.com.fisioapp.ui.activity.AdminHomeActivity
 import br.com.fisioapp.ui.activity.ClientHomeActivity
-import br.com.fisioapp.ui.activity.LoginAndRegisterActivity
+import br.com.fisioapp.ui.activity.LoginActivity
 import br.com.fisioapp.ui.base.BaseActivity
+import br.com.fisioapp.ui.base.BaseLoginFragment
 import br.com.fisioapp.util.ext.hideLoad
 import br.com.fisioapp.util.ext.showLoad
 import br.com.fisioapp.util.ext.successLoad
@@ -48,7 +49,7 @@ class LoginFragment(override val fragmentTag: String) : BaseLoginFragment() {
         }
 
         tv_login.setOnClickListener {
-            (activity as LoginAndRegisterActivity).selectTypeFragment(LoginAndRegisterActivity.MODE_REGISTER)
+            (activity as LoginActivity).selectTypeFragment(LoginActivity.MODE_REGISTER)
         }
     }
 

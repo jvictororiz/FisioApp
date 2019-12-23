@@ -9,12 +9,12 @@ import java.util.*
 /** Locale Brasil */
 val LOCALE_PT_BR = Locale("pt", "BR")
 
-fun String.toDate(pattern: String): Date? {
+fun String.toDate(pattern: String): Date {
     val format = SimpleDateFormat(pattern, LOCALE_PT_BR)
     try {
         return format.parse(this)
     } catch (e: ParseException) {
-        return null
+        return Date()
     }
 }
 

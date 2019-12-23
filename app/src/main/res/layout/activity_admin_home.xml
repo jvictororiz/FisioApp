@@ -51,145 +51,29 @@
                 app:searchIcon="@drawable/ic_search_color_primary" />
         </androidx.cardview.widget.CardView>
 
-
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_add_client"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:textAllCaps="false"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="25dp"
-            android:background="@drawable/shape_button_line_init"
-            android:drawableStart="@drawable/ic_add_user_color_primary"
-            android:drawablePadding="15dp"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:text="@string/adicionar"
-            android:textColor="@color/colorPrimary"
-            android:textSize="14sp"
-            android:visibility="visible"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/body_search"
-            tools:visibility="visible" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_add_treino"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_marginStart="25dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="25dp"
-            android:textAllCaps="false"
             android:background="@drawable/shape_button_line_final"
-            android:drawableStart="@drawable/ic_add_product"
+            android:drawableStart="@drawable/ic_add_user_color_primary"
             android:drawablePadding="15dp"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:text="@string/adicionar_treino"
+            android:text="@string/adicionar"
             android:textColor="@color/background_gradient_final"
             android:textSize="14sp"
             android:visibility="visible"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_add_client"
-            tools:visibility="visible" />
-
-        <TextView
-            android:id="@+id/label_treinos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="30dp"
-            android:fontFamily="@font/museo700_regular"
-            android:text="@string/treinos"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_add_treino" />
-
-        <TextView
-            android:id="@+id/label_treinos_total"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:fontFamily="@font/museo700_regular"
-            android:text="@string/treinos"
-            android:textColor="@color/colorLetter"
-            android:textSize="12sp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/label_treinos"
-            app:layout_constraintLeft_toRightOf="@+id/label_treinos"
-            app:layout_constraintTop_toTopOf="@+id/label_treinos"
-            tools:text="(45 itens)"
+            app:layout_constraintTop_toBottomOf="@+id/body_search"
             tools:visibility="visible" />
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_treinos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toBottomOf="@+id/label_treinos"
-            tools:listitem="@layout/item_treino"
-            tools:visibility="gone" />
 
-        <ProgressBar
-            android:id="@+id/load_treinos"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:visibility="gone"
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="25dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/label_treinos" />
-
-        <LinearLayout
-            android:id="@+id/empty_treinos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="30dp"
-            android:orientation="vertical"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/label_treinos">
-
-            <TextView
-                android:id="@+id/tv_error_treino"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:lines="1"
-                android:maxLines="1"
-                android:fontFamily="@font/museo700_regular"
-                android:text="@string/empty_treinos"
-                android:textColor="@color/colorLetter"
-                android:textSize="16sp"
-                android:visibility="visible" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_refresh_treinos"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="25dp"
-                android:background="@drawable/shape_button_line_init"
-                android:drawableStart="@drawable/ic_refresh_primary"
-                android:drawablePadding="15dp"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
-                android:text="@string/reload"
-                android:textColor="@color/colorPrimary"
-                android:textSize="14sp"
-                android:visibility="visible" />
-
-        </LinearLayout>
 
         <TextView
             android:id="@+id/label_clients"
@@ -202,7 +86,7 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/empty_treinos" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_add_client" />
 
         <TextView
             android:id="@+id/label_clients_total"
@@ -225,12 +109,13 @@
             android:id="@+id/rv_clients"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="15dp"
             android:layout_marginBottom="8dp"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="1"
             app:layout_constraintTop_toBottomOf="@+id/label_clients"
-            tools:listitem="@layout/item_treino" />
+            tools:listitem="@layout/item_user" />
 
         <ProgressBar
             android:id="@+id/load_clients"

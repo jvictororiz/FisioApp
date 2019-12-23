@@ -22,8 +22,14 @@
     <string name="total_itens">(%1$s)</string>
     <string name="save">Salvar</string>
     <string name="possui_conta">Já possui uma conta?\nLogin aqui</string>
-    <string name="dados">Meus Dados</string>
+    <string name="dados">Dados Pessoais</string>
     <string name="name">Nome</string>
     <string name="confirm_password">Confirmação de senha</string>
     <string name="adicionar_treino">Adicionar treino</string>
+    <string name="data_nascimento">Data de nascimento</string>
+    <string name="job">Profissão</string>
+    <string name="phone_number">Número de telefone</string>
+    <string name="next">Próximo</string>
+    <string name="back">Anterior</string>
+    <string name="progresso_cadastro">Progresso cadastro</string>
 </resources>

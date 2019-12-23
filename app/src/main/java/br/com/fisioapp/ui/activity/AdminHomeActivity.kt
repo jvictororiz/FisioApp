@@ -16,7 +16,6 @@ import kotlinx.android.synthetic.main.activity_admin_home.*
 
 class AdminHomeActivity : BaseActivity() {
 
-    private val treinoAdapter = TreinoAdapter()
     private val clientAdapter = ClientAdapter()
 
     private val viewModel: AdminHomeViewModel by lazy {
@@ -35,15 +34,10 @@ class AdminHomeActivity : BaseActivity() {
 
     private fun setupListenres() {
         rv_clients.adapter = clientAdapter
-        rv_treinos.adapter = treinoAdapter
         btn_refresh_clients.setOnClickListener { viewModel.findClients() }
-        btn_refresh_treinos.setOnClickListener { viewModel.findTreinos() }
 
         btn_add_client.setOnClickListener {
-
-        }
-        btn_add_treino.setOnClickListener {
-
+            startActivityAnim(Intent(this, RegisterClientActivity::class.java))
         }
 
         search.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
@@ -60,7 +54,7 @@ class AdminHomeActivity : BaseActivity() {
 
     private fun subscribe() {
         viewModel.datasUser.observe(this, Observer {
-            LoginAndRegisterActivity.startModeEdit(this, it)
+            LoginActivity.startModeEdit(this, it)
         })
         viewModel.nameClient.observe(this, Observer {
             tv_title.text = getString(R.string.apresentation, it)
@@ -76,27 +70,11 @@ class AdminHomeActivity : BaseActivity() {
 
         })
 
-        viewModel.loadTreinos.observe(this, Observer {
-            if (it) {
-                empty_treinos.visibility = View.GONE
-                load_treinos.visibility = View.VISIBLE
-            } else {
-                load_treinos.visibility = View.GONE
-            }
-        })
 
         viewModel.clients.observe(this, Observer {
             clientAdapter.submitList(it.toMutableList())
 
         })
-        viewModel.treinos.observe(this, Observer {
-            treinoAdapter.submitList(it.toMutableList())
-        })
-
-        viewModel.totalItensTreinos.observe(this, Observer {
-            label_treinos_total.text = getString(R.string.total_itens, it.toString())
-        })
-
         viewModel.totalItensClients.observe(this, Observer {
             label_clients_total.text = getString(R.string.total_itens, it.toString())
         })
@@ -105,13 +83,9 @@ class AdminHomeActivity : BaseActivity() {
             empty_clients.visibility = View.VISIBLE
             tv_error_client.text = it
         })
-        viewModel.errorTreinos.observe(this, Observer {
-            empty_treinos.visibility = View.VISIBLE
-            tv_error_treino.text = it
-        })
 
         viewModel.toLogin.observe(this, Observer {
-            val intent = Intent(this, LoginAndRegisterActivity::class.java)
+            val intent = Intent(this, LoginActivity::class.java)
             startActivityClearOthers(intent)
         })
 
