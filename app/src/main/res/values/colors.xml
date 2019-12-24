@@ -11,11 +11,4 @@
     <color name="random_example">#944545</color>
     <color name="random_example2">#4B2C6B</color>
 
-
-    <string-array name="colors">
-        <item>@color/colorPrimary</item>
-        <item>@color/background_gradient_final</item>
-        <item>@color/random_example2</item>
-        <item>@color/random_example</item>
-    </string-array>
 </resources>

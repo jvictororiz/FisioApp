@@ -48,10 +48,11 @@ abstract class BaseActivity : AppCompatActivity() {
             unauthorizedReceiver, unauthorizedFilter)
     }
 
-    fun setUpToolbar(title:String, click:()->Unit){
+    fun setUpToolbar(title:String,  click:()->Unit){
         toolbar_back.setOnClickListener {
             onBackPressed()
         }
+
         toolbar_profile.setOnClickListener {
            click.invoke()
         }

@@ -32,4 +32,14 @@
     <string name="next">Próximo</string>
     <string name="back">Anterior</string>
     <string name="progresso_cadastro">Progresso cadastro</string>
+
+    <string-array name="colors">
+        <item>#9849e5</item>
+        <item>#f36969</item>
+        <item>#4B2C6B</item>
+        <item>#944545</item>
+        <item>#9C27B0</item>
+        <item>#F3D52222</item>
+    </string-array>
+
 </resources>

@@ -2,11 +2,13 @@ package br.com.fisioapp.ui.adapter
 
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
@@ -15,7 +17,7 @@ import br.com.fisioapp.R
 import br.com.fisioapp.data.entities.remote.response.User
 
 
-class ClientAdapter() : RecyclerView.Adapter<ClientAdapter.ViewHolder>() {
+class ClientAdapter : RecyclerView.Adapter<ClientAdapter.ViewHolder>() {
     private var listClients: MutableList<User> = mutableListOf()
     private var currentIndexColor: Int = 0
 
@@ -35,26 +37,35 @@ class ClientAdapter() : RecyclerView.Adapter<ClientAdapter.ViewHolder>() {
     }
 
     inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        private val array: Array<String> = view.context.resources.getStringArray(R.array.colors)
         private val cvBody = view.findViewById<CardView>(R.id.cv_body)
         private val tvName = view.findViewById<TextView>(R.id.tv_name)
         private val tvUsername = view.findViewById<TextView>(R.id.tv_username)
-        private val progressLimite:ProgressBar = view.findViewById<ProgressBar>(R.id.progress_limite)
+        private val progressLimite:ProgressBar = view.findViewById(R.id.progress_limite)
 
         fun bind(user: User) {
-            if (currentIndexColor == array.size - 1) currentIndexColor = 0
-            cvBody.setCardBackgroundColor(Color.parseColor(array[currentIndexColor]))
-            if (currentIndexColor % 2 == 0) {
-                ViewCompat.setBackgroundTintList(progressLimite,ColorStateList.valueOf( ContextCompat.getColor(view.context,R.color.background_gradient_final)))
-                tvName.background = (ContextCompat.getDrawable(view.context, R.drawable.shape_button_line_circle_final))
-            }else{
-                ViewCompat.setBackgroundTintList(progressLimite,ColorStateList.valueOf( ContextCompat.getColor(view.context,R.color.colorPrimary)))
-                tvName.background = (ContextCompat.getDrawable(view.context, R.drawable.shape_button_line_circle_gradient))
-            }
-
+            prepareColors()
             tvName.text = user.name
             tvUsername.text = user.username
             progressLimite.progress = 50
+            currentIndexColor++
+        }
+
+        private fun prepareColors() {
+            val array: Array<String> = view.context.resources.getStringArray(R.array.colors)
+            if (currentIndexColor == array.size - 1)
+                currentIndexColor = 0
+            cvBody.setCardBackgroundColor(Color.parseColor(array[currentIndexColor]))
+            if (currentIndexColor % 2 == 0) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    progressLimite.progressTintList = ColorStateList.valueOf(ContextCompat.getColor(view.context, R.color.background_gradient_final))
+                }
+                tvUsername.background = (ContextCompat.getDrawable(view.context, R.drawable.shape_button_line_circle_final))
+            }else{
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    progressLimite.progressTintList = ColorStateList.valueOf(ContextCompat.getColor(view.context, R.color.colorPrimary))
+                }
+                tvUsername.background = (ContextCompat.getDrawable(view.context, R.drawable.shape_button_circle_gradient))
+            }
         }
     }
 

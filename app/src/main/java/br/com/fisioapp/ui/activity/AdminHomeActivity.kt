@@ -12,11 +12,12 @@ import br.com.fisioapp.ui.adapter.TreinoAdapter
 import br.com.fisioapp.ui.base.BaseActivity
 import br.com.fisioapp.viewModel.AdminHomeViewModel
 import kotlinx.android.synthetic.main.activity_admin_home.*
+import kotlinx.android.synthetic.main.toolbar_home.*
 
 
 class AdminHomeActivity : BaseActivity() {
 
-    private val clientAdapter = ClientAdapter()
+    private val clientAdapter by lazy { ClientAdapter() }
 
     private val viewModel: AdminHomeViewModel by lazy {
         ViewModelProvider(this).get(AdminHomeViewModel::class.java)
@@ -57,6 +58,8 @@ class AdminHomeActivity : BaseActivity() {
             LoginActivity.startModeEdit(this, it)
         })
         viewModel.nameClient.observe(this, Observer {
+            toolbar_subtitulo.text = it
+
             tv_title.text = getString(R.string.apresentation, it)
         })
 
