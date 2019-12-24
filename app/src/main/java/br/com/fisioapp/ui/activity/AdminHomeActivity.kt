@@ -65,7 +65,7 @@ class AdminHomeActivity : BaseActivity() {
 
         viewModel.loadClients.observe(this, Observer {
             if (it) {
-                empty_clients.visibility = View.INVISIBLE
+                empty_clients.visibility = View.GONE
                 load_clients.visibility = View.VISIBLE
             } else {
                 load_clients.visibility = View.GONE
