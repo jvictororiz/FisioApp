@@ -21,17 +21,17 @@ import br.com.fisioapp.viewModel.RegisterViewModel
 import kotlinx.android.synthetic.main.activity_register_client.*
 import kotlinx.android.synthetic.main.user_register_fragment.*
 
-class RegisterUserPersonalDataFragment(override val fragmentTag: String) : BaseLoginFragment() {
+class RegisterUserfdaFragment(override val fragmentTag: String) : BaseLoginFragment() {
     companion object {
         const val EXTRA_USER_DATA = "EXTRA_USER_DATA"
         fun newInstance(user: User) =
-            RegisterUserPersonalDataFragment("RegisterUserFragment").apply {
+            RegisterUserfdaFragment("RegisterUserFragment").apply {
                 bundleOf(
                     Pair(EXTRA_USER_DATA, user)
                 )
             }
 
-        fun newInstance() = RegisterUserPersonalDataFragment("RegisterUserFragment")
+        fun newInstance() = RegisterUserfdaFragment("RegisterUserFragment")
     }
 
 
