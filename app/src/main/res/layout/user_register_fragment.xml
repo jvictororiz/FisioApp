@@ -9,116 +9,116 @@
     app:cardUseCompatPadding="true"
     app:contentPadding="12dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_profile"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:cropToPadding="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_person"
+            app:civ_border_color="@color/colorPrimary"
+            app:civ_border_width="1dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/museo"
+            android:text="@string/dados"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_profile" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_input_name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="65dp"
+            android:layout_marginTop="18dp"
+            android:hint="@string/name"
+            app:layout_constraintTop_toBottomOf="@+id/text_login">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/img_profile"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:cropToPadding="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_person"
-                app:civ_border_color="@color/colorPrimary"
-                app:civ_border_width="1dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/text_login"
-                android:layout_width="wrap_content"
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edt_name"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/museo"
-                android:text="@string/dados"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/img_profile" />
+                android:lines="1"
+                android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_input_name"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_input_username"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:hint="@string/username"
+            app:layout_constraintTop_toBottomOf="@+id/layout_input_name">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edt_username"
                 android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:layout_marginTop="18dp"
-                android:hint="@string/name"
-                app:layout_constraintTop_toBottomOf="@+id/text_login">
+                android:layout_height="wrap_content"
+                android:lines="1"
+                android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/edt_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:lines="1"
-                    android:maxLines="1" />
-            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_input_username"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_birthday"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:hint="@string/data_nascimento"
+            app:layout_constraintTop_toBottomOf="@+id/layout_input_username">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edt_birthday"
+                android:inputType="number"
                 android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:hint="@string/username"
-                app:layout_constraintTop_toBottomOf="@+id/layout_input_name">
-
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/edt_username"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:lines="1"
-                    android:maxLines="1" />
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content"
+                android:lines="1"
+                android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
 
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_birthday"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:hint="@string/phone_number"
+            app:layout_constraintTop_toBottomOf="@+id/input_birthday">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edt_phone_number"
+                android:inputType="number"
                 android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:hint="@string/data_nascimento"
-                app:layout_constraintTop_toBottomOf="@+id/layout_input_username">
+                android:layout_height="wrap_content"
+                android:lines="1"
+                android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/edt_birthday"
-                    android:inputType="number"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:lines="1"
-                    android:maxLines="1" />
-            </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_job"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:hint="@string/job"
+            app:layout_constraintTop_toBottomOf="@+id/input_phone_number">
 
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_phone_number"
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edt_job"
                 android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:hint="@string/phone_number"
-                app:layout_constraintTop_toBottomOf="@+id/input_birthday">
-
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/edt_phone_number"
-                    android:inputType="number"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:lines="1"
-                    android:maxLines="1" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_job"
-                android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:hint="@string/job"
-                app:layout_constraintTop_toBottomOf="@+id/input_phone_number">
-
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/edt_job"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:lines="1"
-                    android:maxLines="1" />
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content"
+                android:lines="1"
+                android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

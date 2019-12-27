@@ -32,6 +32,8 @@
     <string name="next">Próximo</string>
     <string name="back">Anterior</string>
     <string name="progresso_cadastro">Progresso cadastro</string>
+    <string name="diagnostico_clinico">Diagnóstico Clínico</string>
+    <string name="register_step_two">Diagnóstico clínico por diagnóstico fisoterapêutico</string>
 
     <string-array name="colors">
         <item>#9849e5</item>

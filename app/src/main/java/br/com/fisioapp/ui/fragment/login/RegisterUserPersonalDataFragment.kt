@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import br.com.fisioapp.R
 import br.com.fisioapp.data.entities.remote.response.User
 import br.com.fisioapp.data.entities.remote.response.UserClient
+import br.com.fisioapp.ui.base.BaseActivity
 import br.com.fisioapp.ui.base.BaseLoginFragment
 import br.com.fisioapp.util.ext.hideLoad
 import br.com.fisioapp.util.ext.showLoad
@@ -66,9 +67,9 @@ class RegisterUserPersonalDataFragment(override val fragmentTag: String) : BaseL
 
     private fun subscribe() {
         viewModel.oldDataUser.observe(viewLifecycleOwner, Observer {
+            edt_username.setText(it.username)
             edt_username.isEnabled = false
             edt_name.setText(it.name)
-            edt_username.setText(it.username)
             edt_birthday.setText(it.birthDate.toString("dd/MM/yyyy"))
             edt_phone_number.setText(it.phoneNumber)
             edt_job.setText(it.job)
@@ -87,6 +88,10 @@ class RegisterUserPersonalDataFragment(override val fragmentTag: String) : BaseL
                     job = edt_job.text.toString()
                 )
             )
+        })
+
+        viewModel.success.observe(this, Observer {
+            (activity as BaseActivity).replace(RegisterUserSintomasFragment.newInstance(it))
         })
 
         viewModel.loading.observe(viewLifecycleOwner, Observer {
