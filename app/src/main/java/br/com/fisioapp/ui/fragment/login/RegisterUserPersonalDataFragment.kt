@@ -1,7 +1,6 @@
 package br.com.fisioapp.ui.fragment.login
 
 import android.os.Bundle
-import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +17,7 @@ import br.com.fisioapp.util.ext.hideLoad
 import br.com.fisioapp.util.ext.showLoad
 import br.com.fisioapp.util.ext.toDate
 import br.com.fisioapp.util.ext.toString
-import br.com.fisioapp.viewModel.RegisterViewModel
+import br.com.fisioapp.viewModel.RegisterClientViewModel
 import kotlinx.android.synthetic.main.activity_register_client.*
 import kotlinx.android.synthetic.main.user_register_fragment.*
 
@@ -36,8 +35,8 @@ class RegisterUserPersonalDataFragment(override val fragmentTag: String) : BaseL
     }
 
 
-    val viewModel: RegisterViewModel by lazy {
-        ViewModelProvider(requireActivity()).get(RegisterViewModel::class.java)
+    val clientViewModel: RegisterClientViewModel by lazy {
+        ViewModelProvider(requireActivity()).get(RegisterClientViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -51,7 +50,7 @@ class RegisterUserPersonalDataFragment(override val fragmentTag: String) : BaseL
         super.onActivityCreated(savedInstanceState)
 
         arguments?.getParcelable<UserClient>(EXTRA_USER_DATA)?.let {
-            viewModel.prepareToEdit(it)
+            clientViewModel.prepareToEdit(it)
         }
 
         setupListeners()
@@ -61,12 +60,12 @@ class RegisterUserPersonalDataFragment(override val fragmentTag: String) : BaseL
     private fun setupListeners() {
         activity?.btn_back?.visibility = View.VISIBLE
         activity?.btn_next?.setOnClickListener {
-            viewModel.saveUser()
+            clientViewModel.saveUser()
         }
     }
 
     private fun subscribe() {
-        viewModel.oldDataUser.observe(viewLifecycleOwner, Observer {
+        clientViewModel.oldDataUser.observe(viewLifecycleOwner, Observer {
             edt_username.setText(it.username)
             edt_username.isEnabled = false
             edt_name.setText(it.name)
@@ -74,12 +73,12 @@ class RegisterUserPersonalDataFragment(override val fragmentTag: String) : BaseL
             edt_phone_number.setText(it.phoneNumber)
             edt_job.setText(it.job)
             activity?.btn_next?.setOnClickListener {
-                viewModel.editUser()
+                clientViewModel.editUser()
             }
         })
 
-        viewModel.refreshData.observe(viewLifecycleOwner, Observer {
-            viewModel.updateDataInUser(
+        clientViewModel.refreshData.observe(viewLifecycleOwner, Observer {
+            clientViewModel.updateDataInUser(
                 UserClient(
                     username = edt_username.toString(),
                     name = edt_name.text.toString(),
@@ -90,11 +89,11 @@ class RegisterUserPersonalDataFragment(override val fragmentTag: String) : BaseL
             )
         })
 
-        viewModel.success.observe(this, Observer {
+        clientViewModel.success.observe(this, Observer {
             (activity as BaseActivity).replace(RegisterUserSintomasFragment.newInstance(it))
         })
 
-        viewModel.loading.observe(viewLifecycleOwner, Observer {
+        clientViewModel.loading.observe(viewLifecycleOwner, Observer {
             if (it) activity?.btn_next?.showLoad() else activity?.btn_next?.hideLoad()
         })
     }

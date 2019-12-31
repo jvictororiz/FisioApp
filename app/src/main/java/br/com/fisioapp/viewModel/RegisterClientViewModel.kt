@@ -7,7 +7,7 @@ import br.com.fisioapp.ui.base.BaseViewModel
 import br.com.fisioapp.ui.base.SingleLiveEvent
 import java.util.*
 
-class RegisterViewModel : BaseViewModel() {
+class RegisterClientViewModel : BaseViewModel() {
     private val userRepository: UserRepository by lazy { UserRepository() }
     val oldDataUser by lazy { SingleLiveEvent<UserClient>() }
     val refreshData by lazy { SingleLiveEvent<UserClient?>() }
@@ -34,7 +34,7 @@ class RegisterViewModel : BaseViewModel() {
     }
 
     fun editUser() = launchWithLoad {
-        refreshData.postValue(oldDataUser.value)
+        refreshData.value = (oldDataUser.value)
         newDataUser?.let {
             userRepository.editUser(it)
         }

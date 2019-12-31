@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
@@ -18,7 +17,7 @@ import br.com.fisioapp.data.entities.remote.response.UserClient
 import br.com.fisioapp.ui.base.BaseLoginFragment
 import br.com.fisioapp.util.ext.hideLoad
 import br.com.fisioapp.util.ext.showLoad
-import br.com.fisioapp.viewModel.RegisterViewModel
+import br.com.fisioapp.viewModel.RegisterClientViewModel
 import kotlinx.android.synthetic.main.activity_register_client.*
 import kotlinx.android.synthetic.main.user_register_sintomas_fragment.*
 
@@ -28,14 +27,15 @@ class RegisterUserSintomasFragment(override val fragmentTag: String) : BaseLogin
         fun newInstance(user: User) =
             RegisterUserSintomasFragment("RegisterUserSintomasFragment").apply {
                 arguments = Bundle().apply {
-                    putParcelable(EXTRA_USER_DATA, user) }
+                    putParcelable(EXTRA_USER_DATA, user)
+                }
 
             }
     }
 
 
-    val viewModel: RegisterViewModel by lazy {
-        ViewModelProvider(requireActivity()).get(RegisterViewModel::class.java)
+    val clientViewModel: RegisterClientViewModel by lazy {
+        ViewModelProvider(requireActivity()).get(RegisterClientViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -49,7 +49,7 @@ class RegisterUserSintomasFragment(override val fragmentTag: String) : BaseLogin
         super.onActivityCreated(savedInstanceState)
 
         arguments?.getParcelable<UserClient>(EXTRA_USER_DATA)?.let {
-            viewModel.prepareToEdit(it)
+            clientViewModel.prepareToEdit(it)
         }
 
         setupListeners()
@@ -59,39 +59,42 @@ class RegisterUserSintomasFragment(override val fragmentTag: String) : BaseLogin
     private fun setupListeners() {
         activity?.btn_back?.visibility = View.VISIBLE
         activity?.btn_next?.setOnClickListener {
-            viewModel.editUser()
+            clientViewModel.editUser()
+        }
+
+        btn_add.setOnClickListener {
+            clientViewModel.updateDataInUser()
         }
     }
 
     private fun subscribe() {
-        viewModel.oldDataUser.observe(viewLifecycleOwner, Observer {
+        clientViewModel.oldDataUser.observe(viewLifecycleOwner, Observer {
             it?.let { userClient ->
                 if (userClient.diagnosticosClinico.isEmpty()) {
                     userClient.diagnosticosClinico.add(Pair(DiagnosticoClinico("", ""), ""))
-                    userClient.diagnosticosClinico.add(Pair(DiagnosticoClinico("", ""), ""))
-                    userClient.diagnosticosClinico.add(Pair(DiagnosticoClinico("", ""), ""))
-                    userClient.diagnosticosClinico.add(Pair(DiagnosticoClinico("", ""), ""))
                 }
+
                 view_pager.clipToPadding = false
-                view_pager.setPadding(40, 0, 40, 0)
-                view_pager.pageMargin = 20
+                view_pager.setPadding(55, 0, 55, 0)
+                view_pager.pageMargin = -20
                 view_pager.adapter =
                     DiagnosticoPagerAdapter(childFragmentManager, userClient.diagnosticosClinico)
                 activity?.btn_next?.setOnClickListener {
-                    viewModel.editUser()
+                    clientViewModel.editUser()
                 }
             }
         })
 
-        viewModel.refreshData.observe(viewLifecycleOwner, Observer {
+
+        clientViewModel.refreshData.observe(viewLifecycleOwner, Observer {
             it?.let { userClient ->
-                viewModel.updateDataInUser(userClient.apply {
+                clientViewModel.updateDataInUser(userClient.apply {
                     //                    diagnosticosClinico.
                 })
             }
         })
 
-        viewModel.loading.observe(viewLifecycleOwner, Observer {
+        clientViewModel.loading.observe(viewLifecycleOwner, Observer {
             if (it) activity?.btn_next?.showLoad() else activity?.btn_next?.hideLoad()
         })
     }

@@ -1,6 +1,5 @@
 package br.com.fisioapp.ui.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -8,13 +7,13 @@ import br.com.fisioapp.R
 import br.com.fisioapp.data.entities.remote.response.User
 import br.com.fisioapp.ui.base.BaseActivity
 import br.com.fisioapp.ui.fragment.login.RegisterUserPersonalDataFragment
-import br.com.fisioapp.viewModel.RegisterViewModel
+import br.com.fisioapp.viewModel.RegisterClientViewModel
 import kotlinx.android.synthetic.main.activity_register_client.*
 
 class RegisterClientActivity : BaseActivity() {
 
-    val viewModel: RegisterViewModel by lazy {
-        ViewModelProvider(this).get(RegisterViewModel::class.java)
+    val clientViewModel: RegisterClientViewModel by lazy {
+        ViewModelProvider(this).get(RegisterClientViewModel::class.java)
     }
 
     private val registerFragment by lazy {
@@ -34,7 +33,7 @@ class RegisterClientActivity : BaseActivity() {
     }
 
     private fun subscribe() {
-        viewModel.error.observe(this, Observer {
+        clientViewModel.error.observe(this, Observer {
             tv_error.text = it
         })
     }
