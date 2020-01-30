@@ -63,9 +63,6 @@ fun UserClient.stepOneValid(): Boolean{
     return this.name.isNotEmpty() && this.job.isNotEmpty() && this.phoneNumber.isNotEmpty() && this.username.isNotEmpty()
 }
 
-fun UserClient.stepTwoValid(): Boolean{
-    return this.diagnosticosClinico != null && this.diagnosticosFisioteapeutico != null
-}
 
 fun UserClient.stepThreeValid(): Boolean{
     return this.fichaTecnica != null

@@ -35,7 +35,7 @@ class AdminHomeActivity : BaseActivity() {
 
     private fun setupListenres() {
         rv_clients.adapter = clientAdapter
-        btn_refresh_clients.setOnClickListener { viewModel.findClients() }
+//        btn_refresh_clients.setOnClickListener { viewModel.findClients() }
 
         btn_add_client.setOnClickListener {
             startActivityAnim(Intent(this, RegisterClientActivity::class.java))
@@ -65,7 +65,7 @@ class AdminHomeActivity : BaseActivity() {
 
         viewModel.loadClients.observe(this, Observer {
             if (it) {
-                empty_clients.visibility = View.GONE
+//                empty_clients.visibility = View.GONE
                 load_clients.visibility = View.VISIBLE
             } else {
                 load_clients.visibility = View.GONE
@@ -83,8 +83,8 @@ class AdminHomeActivity : BaseActivity() {
         })
 
         viewModel.errorClients.observe(this, Observer {
-            empty_clients.visibility = View.VISIBLE
-            tv_error_client.text = it
+//            empty_clients.visibility = View.VISIBLE
+//            tv_error_client.text = it
         })
 
         viewModel.toLogin.observe(this, Observer {

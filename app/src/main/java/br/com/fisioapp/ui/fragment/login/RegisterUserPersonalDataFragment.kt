@@ -1,25 +1,23 @@
 package br.com.fisioapp.ui.fragment.login
 
 import android.os.Bundle
-import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import br.com.bb.oewallet.ui.BaseFragment
 
 import br.com.fisioapp.R
 import br.com.fisioapp.data.entities.remote.response.User
 import br.com.fisioapp.data.entities.remote.response.UserClient
+import br.com.fisioapp.ui.base.BaseActivity
 import br.com.fisioapp.ui.base.BaseLoginFragment
 import br.com.fisioapp.util.ext.hideLoad
 import br.com.fisioapp.util.ext.showLoad
 import br.com.fisioapp.util.ext.toDate
 import br.com.fisioapp.util.ext.toString
-import br.com.fisioapp.viewModel.RegisterViewModel
+import br.com.fisioapp.viewModel.RegisterClientViewModel
 import kotlinx.android.synthetic.main.activity_register_client.*
 import kotlinx.android.synthetic.main.user_register_fragment.*
 
@@ -37,8 +35,8 @@ class RegisterUserPersonalDataFragment(override val fragmentTag: String) : BaseL
     }
 
 
-    val viewModel: RegisterViewModel by lazy {
-        ViewModelProvider(requireActivity()).get(RegisterViewModel::class.java)
+    val clientViewModel: RegisterClientViewModel by lazy {
+        ViewModelProvider(requireActivity()).get(RegisterClientViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -52,7 +50,7 @@ class RegisterUserPersonalDataFragment(override val fragmentTag: String) : BaseL
         super.onActivityCreated(savedInstanceState)
 
         arguments?.getParcelable<UserClient>(EXTRA_USER_DATA)?.let {
-            viewModel.prepareToEdit(it)
+            clientViewModel.prepareToEdit(it)
         }
 
         setupListeners()
@@ -60,27 +58,27 @@ class RegisterUserPersonalDataFragment(override val fragmentTag: String) : BaseL
     }
 
     private fun setupListeners() {
-        btn_back.isEnabled = false
-        btn_next.setOnClickListener {
-            viewModel.saveUser()
+        activity?.btn_back?.visibility = View.VISIBLE
+        activity?.btn_next?.setOnClickListener {
+            clientViewModel.saveUser()
         }
     }
 
     private fun subscribe() {
-        viewModel.oldDataUser.observe(viewLifecycleOwner, Observer {
+        clientViewModel.oldDataUser.observe(viewLifecycleOwner, Observer {
+            edt_username.setText(it.username)
             edt_username.isEnabled = false
             edt_name.setText(it.name)
-            edt_username.setText(it.username)
             edt_birthday.setText(it.birthDate.toString("dd/MM/yyyy"))
             edt_phone_number.setText(it.phoneNumber)
             edt_job.setText(it.job)
-            btn_next.setOnClickListener {
-                viewModel.editUser()
+            activity?.btn_next?.setOnClickListener {
+                clientViewModel.editUser()
             }
         })
 
-        viewModel.refreshData.observe(viewLifecycleOwner, Observer {
-            viewModel.updateDataInUser(
+        clientViewModel.refreshData.observe(viewLifecycleOwner, Observer {
+            clientViewModel.updateDataInUser(
                 UserClient(
                     username = edt_username.toString(),
                     name = edt_name.text.toString(),
@@ -91,13 +89,17 @@ class RegisterUserPersonalDataFragment(override val fragmentTag: String) : BaseL
             )
         })
 
-        viewModel.loading.observe(viewLifecycleOwner, Observer {
-            if (it) btn_next.showLoad() else btn_next.hideLoad()
+        clientViewModel.success.observe(this, Observer {
+            (activity as BaseActivity).replace(RegisterUserSintomasFragment.newInstance(it))
+        })
+
+        clientViewModel.loading.observe(viewLifecycleOwner, Observer {
+            if (it) activity?.btn_next?.showLoad() else activity?.btn_next?.hideLoad()
         })
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        btn_next?.dispose()
+        activity?.btn_next?.dispose()
     }
 }
