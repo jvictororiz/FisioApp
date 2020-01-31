@@ -1,9 +1,13 @@
 package br.com.fisioapp.ui.fragment.login
 
+import android.app.Activity
+import android.content.Context
+import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
@@ -24,7 +28,6 @@ import kotlinx.android.synthetic.main.activity_register_client.*
 import kotlinx.android.synthetic.main.fragment_diagnostico.*
 import kotlinx.android.synthetic.main.user_register_sintomas_fragment.*
 
-
 class RegisterUserSintomasFragment(override val fragmentTag: String) : BaseLoginFragment() {
     companion object {
         const val EXTRA_USER_DATA = "EXTRA_USER_DATA"
@@ -40,6 +43,8 @@ class RegisterUserSintomasFragment(override val fragmentTag: String) : BaseLogin
     private val clientViewModel: RegisterClientViewModel by lazy {
         ViewModelProvider(requireActivity()).get(RegisterClientViewModel::class.java)
     }
+
+    private val diagnosticoPagerAdapter by lazy { DiagnosticoPagerAdapter(childFragmentManager) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -65,21 +70,11 @@ class RegisterUserSintomasFragment(override val fragmentTag: String) : BaseLogin
             clientViewModel.editUser()
         }
         btn_new.setOnClickListener {
-            val clientUser = (clientViewModel.oldDataUser.value)
-            clientUser?.diagnosticosClinico?.add(Pair(DiagnosticoClinico("", ""), ""))
-            clientUser?.let { client ->
-                clientViewModel.prepareToEdit(client)
-            }
+            diagnosticoPagerAdapter.addItem(Pair(DiagnosticoClinico("", ""), ""))
+            diagnosticoPagerAdapter.notifyDataSetChanged()
+            view_pager.currentItem = diagnosticoPagerAdapter.count - 1
         }
     }
-
-//    private fun refreshDatasInUser(client: UserClient?): UserClient? {
-//        val adapter: DiagnosticoPagerAdapter = view_pager.adapter as DiagnosticoPagerAdapter
-//        adapter.fragmentsDiagnostios.forEach {
-//            client?.diagnosticosClinico?.add(it)
-//        }
-//        return client
-//    }
 
     private fun subscribe() {
         clientViewModel.oldDataUser.observe(this, Observer {
@@ -87,12 +82,13 @@ class RegisterUserSintomasFragment(override val fragmentTag: String) : BaseLogin
                 view_pager.clipToPadding = false
                 view_pager.setPadding(55, 0, 55, 0)
                 view_pager.pageMargin = -20
-                val diagnosticoPagerAdapter = DiagnosticoPagerAdapter(childFragmentManager, userClient.diagnosticosClinico)
+                diagnosticoPagerAdapter.addList(userClient.diagnosticosClinico)
+                diagnosticoPagerAdapter.notifyDataSetChanged()
                 view_pager.adapter = diagnosticoPagerAdapter
+                view_pager.currentItem = diagnosticoPagerAdapter.count - 1
                 activity?.btn_next?.setOnClickListener {
                     clientViewModel.editUser()
                 }
-                view_pager.currentItem = diagnosticoPagerAdapter.count - 1
 
                 view_pager.addOnPageChangeListener(object : OnPageChangeListener {
                     override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
@@ -128,9 +124,20 @@ class RegisterUserSintomasFragment(override val fragmentTag: String) : BaseLogin
         activity?.btn_next?.dispose()
     }
 
-    inner class DiagnosticoPagerAdapter(fm: FragmentManager, val fragmentsDiagnostios: List<Pair<DiagnosticoClinico, String>>) : FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+    inner class DiagnosticoPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+        lateinit var fragmentsDiagnostios: ArrayList<Pair<DiagnosticoClinico, String>>
+
+        fun addItem(item: Pair<DiagnosticoClinico, String>) {
+            fragmentsDiagnostios.add(item)
+            notifyDataSetChanged()
+        }
+
+        fun addList(fragmentsDiagnostios: ArrayList<Pair<DiagnosticoClinico, String>>) {
+            this.fragmentsDiagnostios = fragmentsDiagnostios
+        }
+
         override fun getItem(position: Int): Fragment {
-            return DiagnosticoClinicoPageFragment.newInstance(fragmentsDiagnostios[position])
+            return DiagnosticoClinicoPageFragment.newInstance(fragmentsDiagnostios?.get(position))
         }
 
         override fun getCount() = fragmentsDiagnostios.size
@@ -171,8 +178,11 @@ class RegisterUserSintomasFragment(override val fragmentTag: String) : BaseLogin
             clientViewModel.cidSuccess.observe(this, Observer {
                 diagnostico.first.code = it.code
                 diagnostico.first.message = it.message
+                tv_code_cid.text = it.code
+                tv_code_cid.visibility = View.VISIBLE
                 AppCompatResources.getDrawable(requireContext(), R.drawable.ic_check_white)?.toBitmap()?.let { it1 -> btn_search.doneLoadingAnimation(R.color.green, it1) }
-                edt_cid.setText(it.code+" - "+it.message)
+                edt_cid.setText(it.message)
+                edt_cid.error = null
             })
 
             clientViewModel.cidLoad.observe(this, Observer {
@@ -185,11 +195,6 @@ class RegisterUserSintomasFragment(override val fragmentTag: String) : BaseLogin
                 edt_cid.error = it
             })
         }
-
-        override fun onPause() {
-            super.onPause()
-            this.diagnostico.first.message = edt_cid.text.toString()
-            this.diagnostico.first.code = edt_cid.text.toString()
-        }
     }
+
 }

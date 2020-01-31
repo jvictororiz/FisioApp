@@ -37,6 +37,7 @@
     <string name="diagnostico_fisioterapeutico">Diagnóstico Fisioterapeutico</string>
     <string name="novo">Novo</string>
     <string name="exemplo_a16_1">Exemplo: A16.1</string>
+    <string name="mais_um">+ 1</string>
 
     <string-array name="colors">
         <item>#9849e5</item>

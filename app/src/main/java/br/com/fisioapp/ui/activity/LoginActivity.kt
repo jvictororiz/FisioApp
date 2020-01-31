@@ -8,6 +8,8 @@ import br.com.fisioapp.data.entities.remote.response.User
 import br.com.fisioapp.ui.base.BaseActivity
 import br.com.fisioapp.ui.fragment.login.LoginFragment
 import br.com.fisioapp.ui.fragment.login.RegisterUserPersonalDataFragment
+
+
 class LoginActivity : BaseActivity() {
 
     private val loginFragment by lazy {
@@ -26,6 +28,10 @@ class LoginActivity : BaseActivity() {
 
     fun selectTypeFragment(type: Int) {
         when (type) {
+            MODE_LOGIN ->{
+                replace(loginFragment, false)
+            }
+
             MODE_REGISTER -> {
                 replace(registerFragment, false)
             }

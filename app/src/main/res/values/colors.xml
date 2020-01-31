@@ -7,6 +7,7 @@
     <color name="background_gradient_final">#f36969</color>
     <color name="white">#fff</color>
     <color name="colorLetter">#9C9292</color>
+    <color name="colorLetterDark">#555050</color>
     <color name="gray_low">#289849E5</color>
     <color name="random_example">#944545</color>
     <color name="random_example2">#4B2C6B</color>
