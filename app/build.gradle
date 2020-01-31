@@ -23,10 +23,10 @@ android {
     }
     buildTypes {
         debug {
-            buildConfigField "String", "SERVER_URL", '"https://3000-dot-10012379-dot-devshell.appspot.com/"'
+            buildConfigField "String", "SERVER_URL", '"http://172.18.113.53:3000/"'
         }
         release {
-            buildConfigField "String", "SERVER_URL", '"https://3000-dot-10012379-dot-devshell.appspot.com/"'
+            buildConfigField "String", "SERVER_URL", '"http://172.18.113.53:3000/"'
 
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'

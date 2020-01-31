@@ -15,6 +15,9 @@ class TreinoRepository : BaseRepository() {
     suspend fun findTreinos() =
         treinoService.findTreinos().backgroundCall(dispatchers.value.io)
 
+    suspend fun findCid(search:String) =
+        treinoService.findCid(search).backgroundCall(dispatchers.value.io)
+
 
 }
 

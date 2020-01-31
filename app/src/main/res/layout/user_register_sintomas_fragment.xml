@@ -26,7 +26,7 @@
             tools:listitem="@layout/fragment_diagnostico" />
 
         <Button
-            android:id="@+id/btn_add"
+            android:id="@+id/btn_new"
             android:layout_gravity="end"
             android:text="@string/novo"
             android:layout_width="90dp"
