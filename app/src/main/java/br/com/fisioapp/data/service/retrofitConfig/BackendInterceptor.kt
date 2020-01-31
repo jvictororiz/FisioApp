@@ -10,7 +10,7 @@ class BackendInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request().newBuilder()
 
-        userRepository.persistenceFindUserr()?.token?.let {
+        userRepository.persistenceFindUser()?.token?.let {
             request.addHeader(HEADER_AUTHORIZATION, it)
         }
 

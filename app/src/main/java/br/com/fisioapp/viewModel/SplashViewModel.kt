@@ -14,13 +14,13 @@ class SplashViewModel : BaseViewModel() {
     val toLogin = SingleLiveEvent<Unit>()
 
     fun findStatus() = launch {
-        val user = userRepository.persistenceFindUserr()
+        val user = userRepository.persistenceFindUser()
         if(user == null || !user.expiredAuthorization()){
             toLogin.call()
         }else{
             when(user.status()){
                 StatusUser.ADMIN-> toAdmin.call()
-                StatusUser.CLIENT-> toAdmin.call()
+                StatusUser.CLIENT-> toUser.call()
             }
         }
     }

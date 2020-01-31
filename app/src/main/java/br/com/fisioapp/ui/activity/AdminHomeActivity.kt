@@ -16,7 +16,6 @@ import kotlinx.android.synthetic.main.toolbar_home.*
 
 
 class AdminHomeActivity : BaseActivity() {
-
     private val clientAdapter by lazy { ClientAdapter() }
 
     private val viewModel: AdminHomeViewModel by lazy {

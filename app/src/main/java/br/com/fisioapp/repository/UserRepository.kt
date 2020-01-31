@@ -33,7 +33,7 @@ class UserRepository : BaseRepository() {
     fun persistenceSaveUser(loginResponse: LoginResponse) =
         userDao?.insert(loginResponse)
 
-    fun persistenceFindUserr() = userDao?.find()
+    fun persistenceFindUser() = userDao?.find()
     fun persistenceDeleteUser() = userDao?.delete()
 }
 
