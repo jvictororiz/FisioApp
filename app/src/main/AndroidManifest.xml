@@ -27,15 +27,16 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.activity.LoginActivity" />
         <activity
             android:name=".ui.activity.AdminHomeActivity"
             android:theme="@style/StyleLogged" />
-        <activity android:name=".ui.activity.LoginActivity" />
-        <activity android:name=".ui.activity.ClientHomeActivity" />
+        <activity
+            android:theme="@style/StyleLogged"
+            android:name=".ui.activity.ClientHomeActivity" />
     </application>
 
 </manifest>
