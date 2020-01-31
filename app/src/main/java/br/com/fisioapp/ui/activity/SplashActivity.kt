@@ -11,7 +11,7 @@ import br.com.fisioapp.viewModel.SplashViewModel
 
 class SplashActivity : BaseActivity() {
     private val viewModel: SplashViewModel by lazy { ViewModelProvider(this).get(SplashViewModel::class.java) }
-    private val END_TIME = 700L
+    private val TIME_TO_FINISH = 700L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,7 +20,7 @@ class SplashActivity : BaseActivity() {
 
         Handler().postDelayed({
             viewModel.findStatus()
-        }, END_TIME)
+        }, TIME_TO_FINISH)
     }
 
     private fun subscribe() {

@@ -22,7 +22,7 @@
         <activity android:name=".ui.activity.RegisterClientActivity" />
         <activity android:name=".ui.activity.ProfileActivity" />
         <activity
-            android:name=".ui.activity.AdminHomeActivity"
+            android:name=".ui.activity.SplashActivity"
             android:theme="@style/StyleLogin">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,7 +32,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activity.SplashActivity"
+            android:name=".ui.activity.AdminHomeActivity"
             android:theme="@style/StyleLogged" />
         <activity android:name=".ui.activity.LoginActivity" />
         <activity android:name=".ui.activity.ClientHomeActivity" />

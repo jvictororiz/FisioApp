@@ -1,9 +1,6 @@
 package br.com.fisioapp.viewModel
 
-import br.com.fisioapp.R
-import br.com.fisioapp.data.entities.remote.response.TreinoResponse
 import br.com.fisioapp.data.entities.remote.response.User
-import br.com.fisioapp.repository.TreinoRepository
 import br.com.fisioapp.repository.UserRepository
 import br.com.fisioapp.ui.base.BaseViewModel
 import br.com.fisioapp.ui.base.SingleLiveEvent
@@ -14,22 +11,19 @@ class AdminHomeViewModel : BaseViewModel() {
     private val userRepository: UserRepository by lazy { UserRepository() }
 
     val nameClient = SingleLiveEvent<String>()
-
     val toLogin = SingleLiveEvent<Any?>()
-
     val datasUser = SingleLiveEvent<User>()
-
     val clients = SingleLiveEvent<List<User>>()
     val loadClients = SingleLiveEvent<Boolean>()
     val errorClients = SingleLiveEvent<String>()
     val totalItensClients = SingleLiveEvent<Int>()
 
     init {
-        nameClient.value = userRepository.persistenceFindUserr()?.name()
+        nameClient.value = userRepository.persistenceFindUser()?.name()
         findClients()
     }
 
-    fun findClients() = launch {
+    private fun findClients() = launch {
         clients.value =
             listOf(
                 User("jvictororiz", "joao victor", Date(), "61 998125199", null, "fdafdas"),
