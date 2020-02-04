@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProvider
 import br.com.fisioapp.R
 import br.com.fisioapp.data.entities.remote.response.User
 import br.com.fisioapp.data.entities.remote.response.UserClient
-import br.com.fisioapp.ui.base.BaseActivity
 import br.com.fisioapp.ui.base.BaseLoginFragment
 import br.com.fisioapp.util.ext.hideLoad
 import br.com.fisioapp.util.ext.showLoad
@@ -35,7 +34,7 @@ class RegisterUserPersonalDataFragment(override val fragmentTag: String) : BaseL
     }
 
 
-    val clientViewModel: RegisterClientViewModel by lazy {
+    private val clientViewModel: RegisterClientViewModel by lazy {
         ViewModelProvider(requireActivity()).get(RegisterClientViewModel::class.java)
     }
 
@@ -89,8 +88,8 @@ class RegisterUserPersonalDataFragment(override val fragmentTag: String) : BaseL
             )
         })
 
-        clientViewModel.success.observe(this, Observer {
-            (activity as BaseActivity).replace(RegisterUserSintomasFragment.newInstance(it))
+        clientViewModel.nextSuccess.observe(this, Observer {
+            replace(RegisterUserSintomasFragment.newInstance(it))
         })
 
         clientViewModel.loading.observe(viewLifecycleOwner, Observer {

@@ -38,6 +38,10 @@
     <string name="novo">Novo</string>
     <string name="exemplo_a16_1">Exemplo: A16.1</string>
     <string name="mais_um">+ 1</string>
+    <string name="nova_conduta">Adicionar conduta</string>
+    <string name="nova_conduta_aqui">Digite sua nova conduta</string>
+    <string name="novo_objetivo">Nome objetivo</string>
+    <string name="register_step_three">Objetivos e suas \ncondutas iniciais</string>
 
     <string-array name="colors">
         <item>#9849e5</item>

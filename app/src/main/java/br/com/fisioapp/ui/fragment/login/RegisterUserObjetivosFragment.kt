@@ -14,23 +14,24 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import br.com.fisioapp.R
-import br.com.fisioapp.data.entities.remote.response.DiagnosticoClinico
-import br.com.fisioapp.data.entities.remote.response.User
-import br.com.fisioapp.data.entities.remote.response.UserClient
+import br.com.fisioapp.data.entities.remote.response.*
+import br.com.fisioapp.ui.adapter.CondutaAdapter
 import br.com.fisioapp.ui.base.BaseLoginFragment
 import br.com.fisioapp.util.ext.hideLoad
 import br.com.fisioapp.util.ext.showLoad
 import br.com.fisioapp.viewModel.RegisterClientViewModel
 import kotlinx.android.synthetic.main.activity_register_client.*
-import kotlinx.android.synthetic.main.fragment_diagnostico.*
-import kotlinx.android.synthetic.main.user_register_sintomas_fragment.*
+import kotlinx.android.synthetic.main.item_objetivo.*
+import kotlinx.android.synthetic.main.user_register_objetivo_fragment.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 
-class RegisterUserSintomasFragment(override val fragmentTag: String) : BaseLoginFragment() {
+class RegisterUserObjetivosFragment(override val fragmentTag: String) : BaseLoginFragment() {
     companion object {
         const val EXTRA_USER_DATA = "EXTRA_USER_DATA"
         fun newInstance(user: User) =
-            RegisterUserSintomasFragment("RegisterUserSintomasFragment").apply {
+            RegisterUserObjetivosFragment("RegisterUserSintomasFragment").apply {
                 arguments = Bundle().apply {
                     putParcelable(EXTRA_USER_DATA, user)
                 }
@@ -50,12 +51,12 @@ class RegisterUserSintomasFragment(override val fragmentTag: String) : BaseLogin
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.user_register_sintomas_fragment, container, false)
+        return inflater.inflate(R.layout.user_register_objetivo_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
+        activity?.btn_next?.hideLoad()
         arguments?.getParcelable<UserClient>(EXTRA_USER_DATA)?.let {
             clientViewModel.prepareToEdit(it)
         }
@@ -70,7 +71,7 @@ class RegisterUserSintomasFragment(override val fragmentTag: String) : BaseLogin
             clientViewModel.editUser()
         }
         btn_new.setOnClickListener {
-            diagnosticoPagerAdapter?.addItem(Pair(DiagnosticoClinico("", ""), ""))
+            diagnosticoPagerAdapter?.addItem(Objetivo(ArrayList(), "", Date()))
             diagnosticoPagerAdapter?.notifyDataSetChanged()
             view_pager.currentItem = (diagnosticoPagerAdapter?.count)?.minus(1) ?: 0
         }
@@ -84,9 +85,9 @@ class RegisterUserSintomasFragment(override val fragmentTag: String) : BaseLogin
                 view_pager.setPadding(55, 0, 55, 0)
                 view_pager.pageMargin = -20
 
-                val listFragments: ArrayList<DiagnosticoClinicoPageFragment> = ArrayList()
-                userClient.diagnosticosClinico.forEach { diagnostico ->
-                    listFragments.add(DiagnosticoClinicoPageFragment.newInstance(diagnostico, 0) { fragment ->
+                val listFragments: ArrayList<ObjetivoPageFragment> = ArrayList()
+                userClient.objetivos?.forEach { objetivo ->
+                    listFragments.add(ObjetivoPageFragment.newInstance(objetivo) { fragment ->
                         diagnosticoPagerAdapter?.removeItem(fragment)
                     })
                 }
@@ -116,9 +117,9 @@ class RegisterUserSintomasFragment(override val fragmentTag: String) : BaseLogin
                 clientViewModel.updateDataInUser(userClient.apply {
                     diagnosticosClinico.clear()
                     diagnosticoPagerAdapter?.fragmentsDiagnostios?.forEach { _ ->
-                        val cidCode = tv_code_cid.text.toString()
-                        val cid = edt_cid.text.toString()
-                        diagnosticosClinico.add(Pair(DiagnosticoClinico(cidCode, cid), edt_fisio.text.toString()))
+                        //                        val cidCode = tv_code_cid.text.toString()
+//                        val cid = edt_cid.text.toString()
+//                        diagnosticosClinico.add(Pair(DiagnosticoClinico(cidCode, cid), edt_fisio.text.toString()))
                     }
                 })
             }
@@ -127,14 +128,9 @@ class RegisterUserSintomasFragment(override val fragmentTag: String) : BaseLogin
         clientViewModel.loading.observe(this, Observer {
             if (it) activity?.btn_next?.showLoad() else activity?.btn_next?.hideLoad()
         })
-
-        clientViewModel.nextSuccess.observe(this, Observer {
-            activity?.btn_next?.hideLoad()
-            replace(RegisterUserObjetivosFragment.newInstance(it))
-        })
     }
 
-    private fun refreshList(listFragments: ArrayList<DiagnosticoClinicoPageFragment>) {
+    private fun refreshList(listFragments: ArrayList<ObjetivoPageFragment>) {
         diagnosticoPagerAdapter = DiagnosticoPagerAdapter(childFragmentManager, listFragments)
         view_pager.adapter = diagnosticoPagerAdapter
         view_pager.currentItem = diagnosticoPagerAdapter?.count?.minus(1) ?: 0
@@ -145,21 +141,21 @@ class RegisterUserSintomasFragment(override val fragmentTag: String) : BaseLogin
         activity?.btn_next?.dispose()
     }
 
-    inner class DiagnosticoPagerAdapter(fm: FragmentManager, var fragmentsDiagnostios: ArrayList<DiagnosticoClinicoPageFragment>) : FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
-        fun addItem(item: Pair<DiagnosticoClinico, String>) {
-            fragmentsDiagnostios.add(DiagnosticoClinicoPageFragment.newInstance(item, 0) {
+    inner class DiagnosticoPagerAdapter(fm: FragmentManager, var fragmentsDiagnostios: ArrayList<ObjetivoPageFragment>) : FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+        fun addItem(item: Objetivo) {
+            fragmentsDiagnostios.add(ObjetivoPageFragment.newInstance(item) {
                 removeItem(it)
             })
             notifyDataSetChanged()
         }
 
-        fun removeItem(fragment: DiagnosticoClinicoPageFragment) {
+        fun removeItem(fragment: ObjetivoPageFragment) {
             fragmentsDiagnostios.removeAt(fragmentsDiagnostios.indexOf(fragment))
             refreshList(fragmentsDiagnostios)
         }
 
         override fun getItem(position: Int): Fragment {
-            return  fragmentsDiagnostios[position]
+            return fragmentsDiagnostios[position]
         }
 
         override fun getCount() = fragmentsDiagnostios.size
@@ -170,55 +166,34 @@ class RegisterUserSintomasFragment(override val fragmentTag: String) : BaseLogin
 
     }
 
-    class DiagnosticoClinicoPageFragment(var diagnostico: Pair<DiagnosticoClinico, String>, val position: Int, var actionClose: (diagnostico: DiagnosticoClinicoPageFragment) -> Unit) : Fragment() {
+    class ObjetivoPageFragment(var objetivo: Objetivo, var actionClose: (diagnostico: ObjetivoPageFragment) -> Unit) : Fragment() {
         companion object {
-            fun newInstance(diagnosticos: Pair<DiagnosticoClinico, String>, position: Int, actionClose: (diagnostico: DiagnosticoClinicoPageFragment) -> Unit) =
-                DiagnosticoClinicoPageFragment(diagnostico = diagnosticos, position = position, actionClose = actionClose)
-        }
-
-        private val clientViewModel: RegisterClientViewModel by lazy {
-            ViewModelProvider(requireActivity()).get(RegisterClientViewModel::class.java)
+            fun newInstance(objetivo: Objetivo, actionClose: (diagnostico: ObjetivoPageFragment) -> Unit) =
+                ObjetivoPageFragment(objetivo = objetivo, actionClose = actionClose)
         }
 
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-            return inflater.inflate(R.layout.fragment_diagnostico, container, false)
+            return inflater.inflate(R.layout.item_objetivo, container, false)
         }
 
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
-
-            edt_cid.setText(diagnostico.first.message)
-            edt_fisio.setText(diagnostico.second)
-
-            btn_search.setOnClickListener {
-                clientViewModel.findCid(edt_cid.text.toString())
+            if( objetivo.listCondulta.isNullOrEmpty()){
+                objetivo.listCondulta = arrayListOf(Conduta("", Date()))
             }
+            list_condutas.adapter = objetivo.listCondulta?.let { CondutaAdapter(it) }
+
+            edt_objetive.setText(objetivo.description)
             ic_close.setOnClickListener {
                 actionClose.invoke(this)
             }
-            setup()
-        }
 
-        private fun setup() {
-            clientViewModel.cidSuccess.observe(this, Observer {
-                diagnostico.first.code = it.code
-                diagnostico.first.message = it.message
-                tv_code_cid.text = it.code
-                tv_code_cid.visibility = View.VISIBLE
-                AppCompatResources.getDrawable(requireContext(), R.drawable.ic_check_white)?.toBitmap()?.let { it1 -> btn_search.doneLoadingAnimation(R.color.green, it1) }
-                edt_cid.setText(it.message)
-                edt_cid.error = null
-            })
-
-            clientViewModel.cidLoad.observe(this, Observer {
-                if (it) btn_search.startAnimation() else btn_search.revertAnimation()
-            })
+            btn_add_condulta.setOnClickListener {
+                objetivo.listCondulta?.add(Conduta("", Date()))
+                list_condutas.adapter?.notifyDataSetChanged()
+            }
 
 
-            clientViewModel.cidError.observe(this, Observer {
-                btn_search.revertAnimation()
-                edt_cid.error = it
-            })
         }
     }
 

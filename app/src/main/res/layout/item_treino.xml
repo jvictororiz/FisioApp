@@ -19,15 +19,19 @@
 
     <TextView
         android:id="@+id/tv_name"
+        android:foreground="@drawable/ripple_orange"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:fontFamily="@font/museo700_regular"
+        android:clickable="true"
+        android:focusable="true"
         android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintTop_toTopOf="@+id/img_profile"
         app:layout_constraintLeft_toRightOf="@+id/img_profile"
-        tools:text="João Victor Holanda" />
+        tools:text="João Victor Holanda"
+        tools:ignore="UnusedAttribute" />
 
 
 

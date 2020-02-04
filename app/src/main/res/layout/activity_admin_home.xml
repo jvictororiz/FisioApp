@@ -5,22 +5,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context=".ui.activity.AdminHomeActivity">
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar_home" />
 
     <br.com.fisioapp.ui.components.FatherScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp">
+
+            <include
+                android:tag="-nonconstant"
+                android:id="@+id/toolbar"
+                layout="@layout/toolbar_home" />
+
 
             <TextView
                 android:id="@+id/tv_title"
@@ -32,17 +36,17 @@
                 android:textColor="@color/black"
                 android:textSize="28sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar"
                 tools:text="Olá, João.\nDeseja adicionar \nalgum cliente?" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/body_search"
-                android:tag="sticky"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="40dp"
                 android:layout_marginEnd="12dp"
+                android:tag="sticky"
                 app:cardCornerRadius="5dp"
                 app:cardElevation="2dp"
                 app:cardUseCompatPadding="true"
@@ -61,23 +65,24 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_add_client"
-                style="@style/Widget.AppCompat.Button.Borderless"
+                android:foreground="@drawable/ripple_orange"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="25dp"
                 android:background="@drawable/shape_button_line_final"
+                android:clickable="true"
                 android:drawableStart="@drawable/ic_add_user_color_primary"
                 android:drawablePadding="15dp"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
+                android:focusable="true"
                 android:text="@string/adicionar"
                 android:textColor="@color/background_gradient_final"
                 android:textSize="14sp"
                 android:visibility="visible"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/body_search"
+                tools:ignore="UnusedAttribute"
                 tools:visibility="visible" />
 
 
@@ -111,12 +116,10 @@
                 tools:visibility="visible" />
 
 
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_clients"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:layout_height="match_parent"
                 android:layout_marginTop="15dp"
                 android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -128,11 +131,11 @@
                 android:id="@+id/load_clients"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 android:visibility="gone"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent" />
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </br.com.fisioapp.ui.components.FatherScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

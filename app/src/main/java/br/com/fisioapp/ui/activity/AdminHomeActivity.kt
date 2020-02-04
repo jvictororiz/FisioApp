@@ -78,11 +78,12 @@ class AdminHomeActivity : BaseActivity() {
 
         })
         viewModel.totalItensClients.observe(this, Observer {
+            label_clients_total.visibility = View.VISIBLE
             label_clients_total.text = getString(R.string.total_itens, it.toString())
         })
 
         viewModel.errorClients.observe(this, Observer {
-//            empty_clients.visibility = View.VISIBLE
+            //            empty_clients.visibility = View.VISIBLE
 //            tv_error_client.text = it
         })
 

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edt_conduta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="8dp"
+        android:textSize="19sp"
+        tools:text="Exemplo de conduta"
+        android:layout_marginEnd="22dp"
+        android:background="@drawable/shape_button_line_init"
+        android:ellipsize="end"
+        android:gravity="center|start"
+        android:hint="@string/nova_conduta_aqui"
+        android:lines="2"
+        android:maxLines="2"
+        android:textColor="@color/colorLetter"
+        android:minHeight="50dp"
+        android:padding="7dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:textAlignment="textStart"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_code_cid" />
+
+
+</LinearLayout>

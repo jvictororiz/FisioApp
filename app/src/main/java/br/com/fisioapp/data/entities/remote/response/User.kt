@@ -40,8 +40,8 @@ data class UserClient(
     override var urlPhoto: String? = "",
     var job: String,
     var diagnosticosClinico: ArrayList<Pair<DiagnosticoClinico, String>> = ArrayList(),
+    var objetivos:ArrayList<Objetivo>?= null,
     var fichaTecnica: FichaTecnica? = null,
-    var objetivo: List<Objetivo>? = null,
     var sessao: List<Sessao>? = null
 ) : User(username, name, birthDate, phoneNumber, urlPhoto, password)
 
@@ -56,9 +56,17 @@ data class FichaTecnica(var description: String) : Parcelable
 
 @Parcelize
 data class Objetivo(
+    var listCondulta: ArrayList<Conduta>?,
     var description: String,
     var dateInit: Date,
-    var dateFinal: Date
+    var dateFinal: Date?=null
+) : Parcelable
+
+@Parcelize
+data class Conduta(
+    var description: String,
+    var dateInit: Date,
+    var dateFinal: Date?=null
 ) : Parcelable
 
 @Parcelize

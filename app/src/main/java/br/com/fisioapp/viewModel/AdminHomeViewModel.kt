@@ -31,6 +31,7 @@ class AdminHomeViewModel : BaseViewModel() {
                 User("jvictororiz", "joao victor", Date(), "61 998125199", null, "fdafdas"),
                 User("jvictororiz", "joao victor", Date(), "61 998125199", null, "fdafdas")
             )
+        totalItensClients.value = clients.value!!.size
 
 //        loadClients.value = true
 //        val resultClients = userRepository.findClients()
