@@ -4,8 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -28,21 +28,9 @@
                 android:gravity="start|center"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/ic_close"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:background="?selectableItemBackgroundBorderless"
-                    android:padding="8dp"
-                    android:src="@drawable/ic_close_black"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
 
-
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/edt_objetive"
+                <TextView
+                    android:id="@+id/tv_objective"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -56,19 +44,18 @@
                     android:ellipsize="end"
                     android:fontFamily="@font/museo900_regular"
                     android:gravity="center"
-                    android:hint="@string/novo_objetivo"
                     android:lines="1"
                     android:maxLines="3"
                     android:minHeight="50dp"
                     android:padding="7dp"
                     android:paddingStart="15dp"
                     android:paddingEnd="15dp"
+                    android:text="@string/conduta"
                     android:textColor="@color/colorLetterDark"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    tools:text="Braço quebrado" />
+                    app:layout_constraintRight_toRightOf="parent" />
 
 
             </RelativeLayout>
@@ -78,22 +65,35 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="22dp"
-                android:layout_marginBottom="25dp"
                 android:layout_marginTop="8dp"
-                android:textSize="19sp"
                 android:layout_marginEnd="22dp"
                 android:background="@drawable/shape_button_line_init"
                 android:ellipsize="end"
+                android:enabled="false"
+                android:focusable="false"
+                android:gravity="start"
                 android:hint="@string/nova_conduta_aqui"
                 android:minLines="5"
-                android:gravity="start"
-                android:textColor="@color/colorLetter"
                 android:padding="7dp"
                 android:paddingStart="15dp"
                 android:paddingEnd="15dp"
                 android:textAlignment="textStart"
+                android:textColor="@color/colorLetter"
+                android:textSize="19sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="25dp"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="@string/edit_conduta"
+                android:textSize="12sp" />
 
         </LinearLayout>
 

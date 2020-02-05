@@ -41,38 +41,30 @@ data class UserClient(
     var job: String,
     var diagnosticosClinico: ArrayList<Pair<DiagnosticoClinico, String>> = ArrayList(),
     var objetivos:ArrayList<Objetivo>?= null,
-    var fichaTecnica: FichaTecnica? = null,
-    var sessao: List<Sessao>? = null
+    var fichaTecnica: FichaTecnica? = null
 ) : User(username, name, birthDate, phoneNumber, urlPhoto, password)
 
 
 @Parcelize
 data class DiagnosticoClinico(
     var code: String?,
-    var message: String) : Parcelable
+    var name: String) : Parcelable
 
 @Parcelize
 data class FichaTecnica(var description: String) : Parcelable
 
 @Parcelize
 data class Objetivo(
-    var listCondulta: ArrayList<Conduta>?,
+    var conduta: String,
     var description: String,
     var dateInit: Date,
-    var dateFinal: Date?=null
-) : Parcelable
-
-@Parcelize
-data class Conduta(
-    var description: String,
-    var dateInit: Date,
-    var dateFinal: Date?=null
+    var dateFinal: Date?=null,
+    var sessao: List<Sessao>? = null
 ) : Parcelable
 
 @Parcelize
 data class Sessao(
     var nota: Int,
-    var dateInit: Date,
-    var dateFinal: Date,
+    var date: Date,
     var observacao: String
 ) : Parcelable

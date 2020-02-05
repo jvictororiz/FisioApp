@@ -51,5 +51,13 @@
         <item>#9C27B0</item>
         <item>#F3D52222</item>
     </string-array>
+    <string name="title_activity_admin_sessions">AdminSessionsActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="adicionar_objetivo">Adicionar objetivo</string>
+    <string name="nova_sessao">Nova sessão</string>
+    <string name="conduta">Conduta</string>
+    <string name="register_session">Deseja realizar alguma \nsessão?</string>
+    <string name="edit_conduta">Editar conduta</string>
 
 </resources>

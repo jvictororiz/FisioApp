@@ -26,7 +26,7 @@ class RegisterClientViewModel : BaseViewModel() {
             user.diagnosticosClinico.add(Pair(DiagnosticoClinico("", ""), ""))
         }
         if(user.objetivos.isNullOrEmpty()){
-            user.objetivos = arrayListOf(Objetivo(null, "", Date()))
+            user.objetivos = arrayListOf(Objetivo("", "", Date()))
         }
         oldDataUser.value = user
     }

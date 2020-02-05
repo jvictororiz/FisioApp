@@ -8,7 +8,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import br.com.fisioapp.R
 import br.com.fisioapp.ui.adapter.ClientAdapter
-import br.com.fisioapp.ui.adapter.TreinoAdapter
 import br.com.fisioapp.ui.base.BaseActivity
 import br.com.fisioapp.viewModel.AdminHomeViewModel
 import kotlinx.android.synthetic.main.activity_admin_home.*
@@ -74,7 +73,11 @@ class AdminHomeActivity : BaseActivity() {
 
 
         viewModel.clients.observe(this, Observer {
-            clientAdapter.submitList(it.toMutableList())
+            clientAdapter.submitList(it.toMutableList()){user->
+                startActivityAnim(Intent(this, AdminSessionsByUserActivity::class.java).apply {
+                    putExtra(AdminSessionsByUserActivity.EXTRA_USER, user)
+                })
+            }
 
         })
         viewModel.totalItensClients.observe(this, Observer {

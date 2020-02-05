@@ -4,14 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import br.com.fisioapp.R
 import br.com.fisioapp.data.entities.remote.response.DiagnosticoClinico
@@ -187,7 +184,7 @@ class RegisterUserSintomasFragment(override val fragmentTag: String) : BaseLogin
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
 
-            edt_cid.setText(diagnostico.first.message)
+            edt_cid.setText(diagnostico.first.name)
             edt_fisio.setText(diagnostico.second)
 
             btn_search.setOnClickListener {
@@ -202,21 +199,20 @@ class RegisterUserSintomasFragment(override val fragmentTag: String) : BaseLogin
         private fun setup() {
             clientViewModel.cidSuccess.observe(this, Observer {
                 diagnostico.first.code = it.code
-                diagnostico.first.message = it.message
+                diagnostico.first.name = it.name
                 tv_code_cid.text = it.code
                 tv_code_cid.visibility = View.VISIBLE
-                AppCompatResources.getDrawable(requireContext(), R.drawable.ic_check_white)?.toBitmap()?.let { it1 -> btn_search.doneLoadingAnimation(R.color.green, it1) }
-                edt_cid.setText(it.message)
+                edt_cid.setText(it.name)
                 edt_cid.error = null
             })
 
             clientViewModel.cidLoad.observe(this, Observer {
-                if (it) btn_search.startAnimation() else btn_search.revertAnimation()
+                btn_search.isEnabled = !it
             })
 
 
             clientViewModel.cidError.observe(this, Observer {
-                btn_search.revertAnimation()
+                btn_search.isEnabled = true
                 edt_cid.error = it
             })
         }

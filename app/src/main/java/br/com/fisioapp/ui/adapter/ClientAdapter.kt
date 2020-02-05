@@ -18,6 +18,7 @@ import br.com.fisioapp.data.entities.remote.response.User
 
 
 class ClientAdapter : RecyclerView.Adapter<ClientAdapter.ViewHolder>() {
+    private var eventOpen: ((user: User) -> Unit)? = null
     private var listClients: MutableList<User> = mutableListOf()
     private var currentIndexColor: Int = 0
 
@@ -25,7 +26,6 @@ class ClientAdapter : RecyclerView.Adapter<ClientAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_user, parent, false)
         return ViewHolder(view)
-
     }
 
     override fun getItemCount(): Int {
@@ -40,7 +40,7 @@ class ClientAdapter : RecyclerView.Adapter<ClientAdapter.ViewHolder>() {
         private val cvBody = view.findViewById<CardView>(R.id.cv_body)
         private val tvName = view.findViewById<TextView>(R.id.tv_name)
         private val tvUsername = view.findViewById<TextView>(R.id.tv_username)
-        private val progressLimite:ProgressBar = view.findViewById(R.id.progress_limite)
+        private val progressLimite: ProgressBar = view.findViewById(R.id.progress_limite)
 
         fun bind(user: User) {
             prepareColors()
@@ -48,7 +48,15 @@ class ClientAdapter : RecyclerView.Adapter<ClientAdapter.ViewHolder>() {
             tvUsername.text = user.username
             progressLimite.progress = 50
             currentIndexColor++
+            setupListeners(user)
         }
+
+        private fun setupListeners(user: User) {
+            cvBody.setOnClickListener {
+                eventOpen?.invoke(user)
+            }
+        }
+
 
         private fun prepareColors() {
             val array: Array<String> = view.context.resources.getStringArray(R.array.colors)
@@ -56,11 +64,13 @@ class ClientAdapter : RecyclerView.Adapter<ClientAdapter.ViewHolder>() {
                 currentIndexColor = 0
             cvBody.setCardBackgroundColor(Color.parseColor(array[currentIndexColor]))
             if (currentIndexColor % 2 == 0) {
+                cvBody.foreground = (ContextCompat.getDrawable(view.context, R.drawable.ripple_orange))
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     progressLimite.progressTintList = ColorStateList.valueOf(ContextCompat.getColor(view.context, R.color.background_gradient_final))
                 }
                 tvUsername.background = (ContextCompat.getDrawable(view.context, R.drawable.shape_button_line_circle_final))
-            }else{
+            } else {
+                cvBody.foreground = (ContextCompat.getDrawable(view.context, R.drawable.ripple_primary))
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     progressLimite.progressTintList = ColorStateList.valueOf(ContextCompat.getColor(view.context, R.color.colorPrimary))
                 }
@@ -69,9 +79,10 @@ class ClientAdapter : RecyclerView.Adapter<ClientAdapter.ViewHolder>() {
         }
     }
 
-    fun submitList(clientList: MutableList<User>) {
+    fun submitList(clientList: MutableList<User>, eventOpen: (user: User) -> Unit) {
         this.listClients.clear()
         this.listClients = clientList
+        this.eventOpen = eventOpen
         notifyDataSetChanged()
     }
 }

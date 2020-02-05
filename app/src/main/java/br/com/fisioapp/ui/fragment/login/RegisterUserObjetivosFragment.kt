@@ -4,18 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.viewpager.widget.PagerAdapter
-import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import br.com.fisioapp.R
 import br.com.fisioapp.data.entities.remote.response.*
-import br.com.fisioapp.ui.adapter.CondutaAdapter
 import br.com.fisioapp.ui.base.BaseLoginFragment
 import br.com.fisioapp.util.ext.hideLoad
 import br.com.fisioapp.util.ext.showLoad
@@ -70,8 +65,8 @@ class RegisterUserObjetivosFragment(override val fragmentTag: String) : BaseLogi
         activity?.btn_next?.setOnClickListener {
             clientViewModel.editUser()
         }
-        btn_new.setOnClickListener {
-            diagnosticoPagerAdapter?.addItem(Objetivo(ArrayList(), "", Date()))
+        btn_new_objetive.setOnClickListener {
+            diagnosticoPagerAdapter?.addItem(Objetivo("", "", Date()))
             diagnosticoPagerAdapter?.notifyDataSetChanged()
             view_pager.currentItem = (diagnosticoPagerAdapter?.count)?.minus(1) ?: 0
         }
@@ -95,19 +90,6 @@ class RegisterUserObjetivosFragment(override val fragmentTag: String) : BaseLogi
                 activity?.btn_next?.setOnClickListener {
                     clientViewModel.editUser()
                 }
-
-                view_pager.addOnPageChangeListener(object : OnPageChangeListener {
-                    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-                        if (diagnosticoPagerAdapter?.count?.minus(1) ?: 0 == position) {
-                            btn_new.animate().alpha(1F).duration = 150L
-                        } else {
-                            btn_new.animate().alpha(0F).duration = 150L
-                        }
-                    }
-
-                    override fun onPageSelected(position: Int) {}
-                    override fun onPageScrollStateChanged(state: Int) {}
-                })
             }
         })
 
@@ -178,22 +160,11 @@ class RegisterUserObjetivosFragment(override val fragmentTag: String) : BaseLogi
 
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
-            if( objetivo.listCondulta.isNullOrEmpty()){
-                objetivo.listCondulta = arrayListOf(Conduta("", Date()))
-            }
-            list_condutas.adapter = objetivo.listCondulta?.let { CondutaAdapter(it) }
-
+            edt_conduta.setText(objetivo.conduta)
             edt_objetive.setText(objetivo.description)
             ic_close.setOnClickListener {
                 actionClose.invoke(this)
             }
-
-            btn_add_condulta.setOnClickListener {
-                objetivo.listCondulta?.add(Conduta("", Date()))
-                list_condutas.adapter?.notifyDataSetChanged()
-            }
-
-
         }
     }
 
