@@ -10,6 +10,7 @@ import com.google.gson.Gson
 import java.math.BigDecimal
 import java.nio.charset.Charset
 import java.text.NumberFormat
+import java.text.SimpleDateFormat
 import java.util.*
 
 /* Extensões para os primitivos */
@@ -59,12 +60,12 @@ fun LoginResponse.status(): StatusUser? {
 }
 
 
-fun UserClient.stepOneValid(): Boolean{
+fun UserClient.stepOneValid(): Boolean {
     return this.name.isNotEmpty() && this.job.isNotEmpty() && this.phoneNumber.isNotEmpty() && this.username.isNotEmpty()
 }
 
 
-fun UserClient.stepThreeValid(): Boolean{
+fun UserClient.stepThreeValid(): Boolean {
     return this.fichaTecnica != null
 }
 
@@ -78,7 +79,7 @@ fun LoginResponse.name(): String {
     }
 }
 
-fun LoginResponse.expiredAuthorization(): Boolean{
+fun LoginResponse.expiredAuthorization(): Boolean {
     return try {
         val decode = Base64.decode(token?.split(".")?.get(1), Base64.DEFAULT).toString(Charset.defaultCharset())
         val token = Gson().fromJson(decode, TokenObject::class.java)
@@ -87,4 +88,8 @@ fun LoginResponse.expiredAuthorization(): Boolean{
         ex.printStackTrace()
         true
     }
+}
+
+fun Int.isPar(): Boolean {
+    return this % 2 == 0
 }

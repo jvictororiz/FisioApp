@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
@@ -13,13 +14,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
 import br.com.fisioapp.R
 import br.com.fisioapp.data.entities.remote.response.Objetivo
+import br.com.fisioapp.data.entities.remote.response.Sessao
 import br.com.fisioapp.data.entities.remote.response.User
-import br.com.fisioapp.ui.fragment.login.RegisterUserObjetivosFragment
+import br.com.fisioapp.ui.sheetDialog.SessionsBottomDialog
 import br.com.fisioapp.viewModel.RegisterTreinoClientViewModel
 import kotlinx.android.synthetic.main.activity_admin_sessions_by_user.*
 import kotlinx.android.synthetic.main.activity_admin_sessions_by_user.view_pager
-import kotlinx.android.synthetic.main.item_sessao.*
-import kotlinx.android.synthetic.main.user_register_objetivo_fragment.*
+import kotlinx.android.synthetic.main.item_register_sessao.*
 
 class AdminSessionsByUserActivity : AppCompatActivity() {
 
@@ -39,9 +40,6 @@ class AdminSessionsByUserActivity : AppCompatActivity() {
         intent?.extras?.getParcelable<User>(EXTRA_USER)?.let {
             treinoViewModel.selectUser(it)
         }
-        gradient_chart.chartValues = arrayOf(
-            10f, 30f, 25f, 32f, 13f, 5f, 18f, 36f, 20f, 30f, 28f, 27f, 29f
-        )
 
         treinoViewModel.findObjetive()
         configViews()
@@ -52,10 +50,14 @@ class AdminSessionsByUserActivity : AppCompatActivity() {
 
     private fun setup() {
 
-        treinoViewModel.userSelected.observe(this, Observer {
 
+        treinoViewModel.userSelected.observe(this, Observer {
+            tv_apresentation_user.text = getString(R.string.register_session, it.name)
         })
+
         treinoViewModel.successObjeties.observe(this, Observer {
+
+            setupChart(it[0])
             view_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
                 override fun onPageScrollStateChanged(state: Int) {
 
@@ -65,14 +67,7 @@ class AdminSessionsByUserActivity : AppCompatActivity() {
                 }
 
                 override fun onPageSelected(position: Int) {
-                    val objetive = it[position]
-                    val notes: Array<Float> = Array(objetive.sessao?.size?:0){
-                        0F
-                    }
-                    objetive.sessao?.forEachIndexed { index, sessao ->
-                        notes[index] = sessao.nota.toFloat()*20f
-                    }
-                    gradient_chart.chartValues = notes
+                    setupChart(it[position])
                     gradient_chart.refresh()
 
                 }
@@ -80,9 +75,15 @@ class AdminSessionsByUserActivity : AppCompatActivity() {
 
             val listFragments: ArrayList<ObjetivoPageFragment> = ArrayList()
             it.forEach { objetivo ->
-                listFragments.add(ObjetivoPageFragment.newInstance(objetivo) {
-                    treinoViewModel.saveObjetive()
-                })
+                listFragments.add(ObjetivoPageFragment.newInstance(
+                    objetivo = objetivo,
+                    actionSaveEdition = {
+                        Toast.makeText(this, "Salvar aqui", Toast.LENGTH_SHORT).show()
+
+                    }, actionSeeSessions = { sessoes ->
+                        SessionsBottomDialog(this, sessoes).show()
+                    })
+                )
             }
             refreshList(listFragments)
         })
@@ -92,6 +93,21 @@ class AdminSessionsByUserActivity : AppCompatActivity() {
         treinoViewModel.error.observe(this, Observer {
 
         })
+
+    }
+
+    private fun setupChart(objetive: Objetivo) {
+        if (objetive.sessao?.size ?: 0 > 2) {
+            val notes: Array<Float> = Array(objetive.sessao?.size ?: 0) {
+                0F
+            }
+            objetive.sessao?.forEachIndexed { index, sessao ->
+                notes[index] = (5 - sessao.nota).toFloat() * 20f
+            }
+            gradient_chart.chartValues = notes
+        } else {
+            gradient_chart.visibility = View.INVISIBLE
+        }
 
     }
 
@@ -125,16 +141,16 @@ class AdminSessionsByUserActivity : AppCompatActivity() {
 
     }
 
-    class ObjetivoPageFragment(var objetivo: Objetivo, var actionSaveEdition: (objetive: Objetivo) -> Unit) : Fragment() {
+    class ObjetivoPageFragment(var objetivo: Objetivo, var actionSaveEdition: (objetive: Objetivo) -> Unit, var actionSeeSessions: (sessions: List<Sessao>) -> Unit) : Fragment() {
         private lateinit var clickEdit: () -> Unit
 
         companion object {
-            fun newInstance(objetivo: Objetivo, actionSaveEdition: (objetive: Objetivo) -> Unit) =
-                ObjetivoPageFragment(objetivo = objetivo, actionSaveEdition = actionSaveEdition)
+            fun newInstance(objetivo: Objetivo, actionSaveEdition: (objetive: Objetivo) -> Unit, actionSeeSessions: (sessions: List<Sessao>) -> Unit) =
+                ObjetivoPageFragment(objetivo = objetivo, actionSaveEdition = actionSaveEdition, actionSeeSessions = actionSeeSessions)
         }
 
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-            return inflater.inflate(R.layout.item_sessao, container, false)
+            return inflater.inflate(R.layout.item_register_sessao, container, false)
         }
 
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -146,19 +162,21 @@ class AdminSessionsByUserActivity : AppCompatActivity() {
             clickEdit = {
                 tv_edit.text = getString(R.string.save)
                 edt_conduta.isEnabled = true
-                edt_conduta.isFocusable = true
+                edt_conduta.isFocusableInTouchMode = true
                 tv_edit.setOnClickListener {
                     tv_edit.text = getString(R.string.edit_conduta)
-                    edt_conduta.isFocusable = false
+                    edt_conduta.isFocusableInTouchMode = false
                     edt_conduta.isEnabled = false
                     objetivo.conduta = edt_conduta.text.toString()
                     actionSaveEdition.invoke(objetivo)
-                    clickEdit.invoke()
+                    tv_edit.setOnClickListener { clickEdit.invoke() }
                 }
             }
             tv_edit.setOnClickListener {
                 clickEdit.invoke()
             }
+
+            tv_see_sessions.setOnClickListener { objetivo.sessao?.let { it1 -> actionSeeSessions.invoke(it1) } }
         }
     }
 }

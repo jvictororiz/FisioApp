@@ -57,7 +57,11 @@
     <string name="adicionar_objetivo">Adicionar objetivo</string>
     <string name="nova_sessao">Nova sessão</string>
     <string name="conduta">Conduta</string>
-    <string name="register_session">Deseja realizar alguma \nsessão?</string>
+    <string name="register_session">Deseja realizar alguma \nsessão com %1$s?</string>
     <string name="edit_conduta">Editar conduta</string>
+    <string name="sem_observacao">Sem observação</string>
+    <string name="sessoes_anteriores">Sessões anteriores</string>
+    <string name="avaliacao">Avaliação %1$s</string>
+    <string name="sessoes_entre">Sessões realizadas entre o  dia %1$s até %1$s</string>
 
 </resources>

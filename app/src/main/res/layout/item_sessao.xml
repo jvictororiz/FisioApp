@@ -1,101 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    android:layout_margin="6dp"
+    android:layout_marginBottom="4dp"
+    android:elevation="5dp"
+    app:cardCornerRadius="2dp"
+    app:cardUseCompatPadding="true"
+    app:contentPadding="7dp">
 
-    <androidx.cardview.widget.CardView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:orientation="vertical"
-        app:cardCornerRadius="4dp"
-        app:cardElevation="2dp"
-        app:cardUseCompatPadding="true">
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/line_color"
+            android:layout_width="4dp"
+            android:layout_height="0dp"
+            android:background="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_day"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginStart="28dp"
+            android:textColor="#000"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="08" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="start|center"
-                android:orientation="horizontal">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:textColor="@color/colorLetter"
+            android:textSize="15sp"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_day"
+            app:layout_constraintRight_toRightOf="@id/tv_day"
+            app:layout_constraintTop_toBottomOf="@+id/tv_day"
+            tools:text="Mar" />
 
-
-                <TextView
-                    android:id="@+id/tv_objective"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="top|center"
-                    android:layout_marginStart="22dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="22dp"
-                    android:background="@null"
-                    android:ellipsize="end"
-                    android:fontFamily="@font/museo900_regular"
-                    android:gravity="center"
-                    android:lines="1"
-                    android:maxLines="3"
-                    android:minHeight="50dp"
-                    android:padding="7dp"
-                    android:paddingStart="15dp"
-                    android:paddingEnd="15dp"
-                    android:text="@string/conduta"
-                    android:textColor="@color/colorLetterDark"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent" />
+        <View
+            android:id="@+id/line_vertical"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:background="#81BBB9B9"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_month"
+            app:layout_constraintLeft_toRightOf="@id/tv_month"
+            app:layout_constraintTop_toTopOf="@+id/tv_day" />
 
 
-            </RelativeLayout>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_objetive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:background="@null"
+            android:ellipsize="end"
+            android:fontFamily="@font/museo900_regular"
+            android:maxLines="4"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:text="@string/sem_observacao"
+            android:textColor="@color/colorLetter"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/line_vertical"
+            app:layout_constraintLeft_toRightOf="@+id/line_vertical"
+            app:layout_constraintTop_toTopOf="@+id/line_vertical"
+            tools:text="Fortalecimento da parte superior" />
 
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/edt_conduta"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="22dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="22dp"
-                android:background="@drawable/shape_button_line_init"
-                android:ellipsize="end"
-                android:enabled="false"
-                android:focusable="false"
-                android:gravity="start"
-                android:hint="@string/nova_conduta_aqui"
-                android:minLines="5"
-                android:padding="7dp"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp"
-                android:textAlignment="textStart"
-                android:textColor="@color/colorLetter"
-                android:textSize="19sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_avaliation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:textColor="#DD9C9292"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toRightOf="@+id/line_vertical"
+            app:layout_constraintTop_toBottomOf="@+id/tv_objetive"
+            tools:text="Avaliação: 4" />
 
-            <TextView
-                android:id="@+id/tv_edit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="6dp"
-                android:layout_marginBottom="25dp"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="@string/edit_conduta"
-                android:textSize="12sp" />
 
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
-</androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

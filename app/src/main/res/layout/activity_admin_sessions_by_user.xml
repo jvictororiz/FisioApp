@@ -11,21 +11,27 @@
         android:id="@+id/gradient_chart"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:isBezier="false"
+        app:isBezier="true"
         tools:visibility="gone"
+        android:foreground="@drawable/ripple_final"
+        android:clickable="true"
+        android:focusable="true"
+        app:weight="-200dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/view_pager"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:minusColorEnd="@color/white"
-        app:minusColorStart="@color/colorPrimary"
+        app:minusColorStart="@color/background_gradient_final"
         app:plusColorEnd="@color/white"
         app:plusColorStart="@color/white"
-        app:zoom="6" />
+        app:zoom="4"
+        tools:ignore="UnusedAttribute" />
 
 
     <TextView
-        android:id="@+id/label"
+        android:id="@+id/tv_apresentation_user"
+        tools:text="Deseja realizar alguma \nsessão João?"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/museo900_regular"
@@ -37,17 +43,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tab_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/label" />
-
-    <androidx.viewpager.widget.ViewPager
+    <br.com.fisioapp.ui.components.WrapContentViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="320dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        tools:listitem="@layout/item_register_sessao"
         app:layout_constraintBottom_toTopOf="@+id/btn_new_session"
         tools:background="@color/colorPrimary" />
 
@@ -63,7 +64,7 @@
         android:clickable="true"
         android:drawablePadding="15dp"
         android:focusable="true"
-        android:foreground="@drawable/ripple_orange"
+        android:foreground="@drawable/ripple_final"
         android:text="@string/nova_sessao"
         android:textColor="@color/white"
         android:textSize="16sp"

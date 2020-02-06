@@ -65,7 +65,7 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_add_client"
-                android:foreground="@drawable/ripple_orange"
+                android:foreground="@drawable/ripple_final"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginStart="25dp"

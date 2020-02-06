@@ -1,5 +1,7 @@
 package br.com.fisioapp.viewModel
 
+import br.com.fisioapp.R
+import br.com.fisioapp.SuperApplication
 import br.com.fisioapp.data.entities.remote.response.*
 import br.com.fisioapp.repository.TreinoRepository
 import br.com.fisioapp.repository.UserRepository
@@ -17,13 +19,12 @@ class RegisterTreinoClientViewModel : BaseViewModel() {
     val emptyObjetivo by lazy { SingleLiveEvent<Boolean>() }
 
     fun findObjetive() = launch {
-
         successObjeties.value = listOf(
-            Objetivo("Minha conduta número 1" ,"Descrição da conduta aqui bla bla bla", Date(), Date(), listOf(Sessao(1, Date(), "teste"),Sessao(1, Date(), "teste"),Sessao(1, Date(), "teste"),Sessao(4, Date(), "teste"),Sessao(2, Date(), "teste"),Sessao(3, Date(), "teste"))),
-            Objetivo("Minha conduta número 1" ,"Descrição da conduta aqui bla bla bla", Date(), Date(), listOf(Sessao(1, Date(), "teste"),Sessao(1, Date(), "teste"),Sessao(1, Date(), "teste"),Sessao(1, Date(), "teste"),Sessao(5, Date(), "teste"),Sessao(2, Date(), "teste"))),
-            Objetivo("Minha conduta número 1" ,"Descrição da conduta aqui bla bla bla", Date(), Date(), listOf(Sessao(1, Date(), "teste"),Sessao(1, Date(), "teste"),Sessao(1, Date(), "teste"),Sessao(4, Date(), "teste"),Sessao(2, Date(), "teste"),Sessao(3, Date(), "teste"))),
-            Objetivo("Minha conduta número 1" ,"Descrição da conduta aqui bla bla bla", Date(), Date(), listOf(Sessao(1, Date(), "teste"),Sessao(1, Date(), "teste"),Sessao(1, Date(), "teste"),Sessao(5, Date(), "teste"),Sessao(4, Date(), "teste"),Sessao(3, Date(), "teste"))),
-            Objetivo("Minha conduta número 1" ,"Descrição da conduta aqui bla bla bla", Date(), Date(), listOf(Sessao(1, Date(), "teste"),Sessao(1, Date(), "teste"),Sessao(1, Date(), "teste"),Sessao(4, Date(), "teste"),Sessao(2, Date(), "teste"),Sessao(3, Date(), "teste")))
+            Objetivo("Minha conduta número 1", "Descrição da conduta aqui bla bla bla", Date(), Date(), listOf(Sessao(5, Date(), "teste"), Sessao(5, Date(), "teste"), Sessao(5, Date(), "teste"), Sessao(5, Date(), "teste"), Sessao(5, Date(), "teste"), Sessao(5, Date(), "teste"))),
+            Objetivo("Minha conduta número 1", "Descrição da conduta aqui bla bla bla", Date(), Date(), listOf(Sessao(1, Date(), "teste"), Sessao(1, Date(), "teste"), Sessao(1, Date(), "teste"), Sessao(1, Date(), "teste"), Sessao(5, Date(), "teste"), Sessao(2, Date(), "teste"))),
+            Objetivo("Minha conduta número 1", "Descrição da conduta aqui bla bla bla", Date(), Date(), listOf(Sessao(1, Date(), "teste"), Sessao(1, Date(), "teste"), Sessao(1, Date(), "teste"), Sessao(4, Date(), "teste"), Sessao(2, Date(), "teste"), Sessao(3, Date(), "teste"))),
+            Objetivo("Minha conduta número 1", "Descrição da conduta aqui bla bla bla", Date(), Date(), listOf(Sessao(1, Date(), "teste"), Sessao(1, Date(), "teste"), Sessao(1, Date(), "teste"), Sessao(5, Date(), "teste"), Sessao(4, Date(), "teste"), Sessao(3, Date(), "teste"))),
+            Objetivo("Minha conduta número 1", "Descrição da conduta aqui bla bla bla", Date(), Date(), listOf(Sessao(1, Date(), "teste"), Sessao(1, Date(), "teste"), Sessao(1, Date(), "teste"), Sessao(4, Date(), "teste"), Sessao(2, Date(), "teste"), Sessao(3, Date(), "teste")))
 
         )
 

@@ -65,7 +65,7 @@
             android:layout_marginStart="45dp"
             android:layout_marginEnd="6dp"
             android:layout_marginBottom="6dp"
-            android:foreground="@drawable/ripple_orange"
+            android:foreground="@drawable/ripple_final"
             android:clickable="true"
             android:focusable="true"
             android:background="@drawable/shape_button_circle_final"

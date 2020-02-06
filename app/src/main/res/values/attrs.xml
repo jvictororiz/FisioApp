@@ -22,6 +22,7 @@
             <attr name="isBezier" format="boolean"/>
             <attr name="bezierIntensity" format="float"/>
             <attr name="zoom" format="integer"/>
+            <attr name="weight" format="dimension"/>
 
         </declare-styleable>
 </resources>

@@ -57,6 +57,12 @@ class GradientChart : View {
             invalidate()
         }
 
+    var mWeight: Float = 0F
+        set(value) {
+            field = value
+            invalidate()
+        }
+
     var isBezier: Boolean = true
         set(value) {
             field = value
@@ -113,6 +119,7 @@ class GradientChart : View {
         minusColorEnd = a.getColor(R.styleable.GradientChart_minusColorEnd, Color.YELLOW)
 
         zoom = a.getInt(R.styleable.GradientChart_zoom, 1)
+        mWeight = a.getDimension(R.styleable.GradientChart_weight, 0F)
         isBezier = a.getBoolean(R.styleable.GradientChart_isBezier, true)
         bezierIntensity = a.getFloat(R.styleable.GradientChart_bezierIntensity, 0.5f)
     }
@@ -148,9 +155,8 @@ class GradientChart : View {
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         mWidth = MeasureSpec.getSize(widthMeasureSpec)
         mHeight = MeasureSpec.getSize(heightMeasureSpec)
-
         xCenter = (mWidth / 2).toFloat()
-        yCenter = (mHeight / 2).toFloat()
+        yCenter = (((mHeight+ mWeight) / 2)).toFloat()
 
         this.setMeasuredDimension(width, height)
 
@@ -171,7 +177,7 @@ class GradientChart : View {
         mHeight = h
 
         xCenter = (mWidth / 2).toFloat()
-        yCenter = (mHeight / 2).toFloat()
+        yCenter = ((mHeight + mWeight) / 2).toFloat()
 
 
         initPaints()
@@ -180,7 +186,7 @@ class GradientChart : View {
 
     private fun setupChartPath() {
         if(chartValues.count() <= 0) return
-        
+
         val chartPointStep = mWidth / chartValues.count()
 
         minChartValue = ((chartValues.max()!! * zoom) + yCenter).toInt()

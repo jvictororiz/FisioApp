@@ -37,8 +37,8 @@
                     android:background="?selectableItemBackgroundBorderless"
                     android:padding="8dp"
                     android:src="@drawable/ic_close_black"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintLeft_toLeftOf="@+id/edt_objetive"
+                    app:layout_constraintTop_toTopOf="@+id/edt_objetive" />
 
 
                 <androidx.appcompat.widget.AppCompatEditText
@@ -57,8 +57,6 @@
                     android:fontFamily="@font/museo900_regular"
                     android:gravity="center"
                     android:hint="@string/novo_objetivo"
-                    android:lines="1"
-                    android:maxLines="3"
                     android:minHeight="50dp"
                     android:padding="7dp"
                     android:paddingStart="15dp"

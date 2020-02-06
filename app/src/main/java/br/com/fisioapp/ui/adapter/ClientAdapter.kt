@@ -8,13 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import br.com.fisioapp.R
 import br.com.fisioapp.data.entities.remote.response.User
+import br.com.fisioapp.util.ext.isPar
 
 
 class ClientAdapter : RecyclerView.Adapter<ClientAdapter.ViewHolder>() {
@@ -63,17 +62,14 @@ class ClientAdapter : RecyclerView.Adapter<ClientAdapter.ViewHolder>() {
             if (currentIndexColor == array.size - 1)
                 currentIndexColor = 0
             cvBody.setCardBackgroundColor(Color.parseColor(array[currentIndexColor]))
-            if (currentIndexColor % 2 == 0) {
-                cvBody.foreground = (ContextCompat.getDrawable(view.context, R.drawable.ripple_orange))
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    progressLimite.progressTintList = ColorStateList.valueOf(ContextCompat.getColor(view.context, R.color.background_gradient_final))
-                }
+            if (currentIndexColor.isPar()) {
+                cvBody.foreground = (ContextCompat.getDrawable(view.context, R.drawable.ripple_final))
+                progressLimite.progressTintList = ColorStateList.valueOf(ContextCompat.getColor(view.context, R.color.background_gradient_final))
+
                 tvUsername.background = (ContextCompat.getDrawable(view.context, R.drawable.shape_button_line_circle_final))
             } else {
                 cvBody.foreground = (ContextCompat.getDrawable(view.context, R.drawable.ripple_primary))
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    progressLimite.progressTintList = ColorStateList.valueOf(ContextCompat.getColor(view.context, R.color.colorPrimary))
-                }
+                progressLimite.progressTintList = ColorStateList.valueOf(ContextCompat.getColor(view.context, R.color.colorPrimary))
                 tvUsername.background = (ContextCompat.getDrawable(view.context, R.drawable.shape_button_circle_gradient))
             }
         }
