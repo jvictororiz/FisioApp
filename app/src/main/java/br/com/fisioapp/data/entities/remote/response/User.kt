@@ -59,7 +59,7 @@ data class Objetivo(
     var description: String,
     var dateInit: Date,
     var dateFinal: Date?=null,
-    var sessao: List<Sessao>? = null
+    var sessao: ArrayList<Sessao>? = null
 ) : Parcelable
 
 @Parcelize

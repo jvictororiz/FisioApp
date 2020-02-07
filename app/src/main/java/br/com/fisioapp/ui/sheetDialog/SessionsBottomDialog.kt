@@ -5,17 +5,15 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import br.com.fisioapp.R
-import br.com.fisioapp.data.entities.remote.response.Objetivo
 import br.com.fisioapp.data.entities.remote.response.Sessao
 import br.com.fisioapp.ui.components.SuperSheetPopup
 import br.com.fisioapp.util.ext.isPar
 import br.com.fisioapp.util.ext.toString
-import kotlinx.android.synthetic.main.bottom_dialog_register_treino.view.*
+import kotlinx.android.synthetic.main.bottom_dialog_sessions.view.*
 import kotlinx.android.synthetic.main.item_sessao.view.*
 
 class SessionsBottomDialog : SuperSheetPopup {
@@ -34,7 +32,7 @@ class SessionsBottomDialog : SuperSheetPopup {
     }
 
     override fun createView(): View {
-        val v = LayoutInflater.from(context).inflate(R.layout.bottom_dialog_register_treino, null)
+        val v = LayoutInflater.from(context).inflate(R.layout.bottom_dialog_sessions, null)
         val textDate = sessions[0].date.toString("dd/MM") + " até " + sessions[sessions.size - 1].date.toString("dd/MM")
         v.tv_apresentation_user.text = context.getString(R.string.sessoes_entre, textDate)
         v.rv_sessions.adapter = SessionsAdapter(context, sessions)

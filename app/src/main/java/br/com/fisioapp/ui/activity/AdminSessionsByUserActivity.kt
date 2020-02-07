@@ -16,6 +16,7 @@ import br.com.fisioapp.R
 import br.com.fisioapp.data.entities.remote.response.Objetivo
 import br.com.fisioapp.data.entities.remote.response.Sessao
 import br.com.fisioapp.data.entities.remote.response.User
+import br.com.fisioapp.ui.sheetDialog.RegisterSessionBottomDialog
 import br.com.fisioapp.ui.sheetDialog.SessionsBottomDialog
 import br.com.fisioapp.viewModel.RegisterTreinoClientViewModel
 import kotlinx.android.synthetic.main.activity_admin_sessions_by_user.*
@@ -49,15 +50,18 @@ class AdminSessionsByUserActivity : AppCompatActivity() {
     }
 
     private fun setup() {
-
-
         treinoViewModel.userSelected.observe(this, Observer {
             tv_apresentation_user.text = getString(R.string.register_session, it.name)
         })
 
+        treinoViewModel.objetiveSelected.observe(this, Observer {
+            setupChart(it)
+            gradient_chart.refresh()
+        })
+
         treinoViewModel.successObjeties.observe(this, Observer {
 
-            setupChart(it[0])
+            treinoViewModel.setObjetiveSelected(it[0])
             view_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
                 override fun onPageScrollStateChanged(state: Int) {
 
@@ -67,8 +71,7 @@ class AdminSessionsByUserActivity : AppCompatActivity() {
                 }
 
                 override fun onPageSelected(position: Int) {
-                    setupChart(it[position])
-                    gradient_chart.refresh()
+                    treinoViewModel.setObjetiveSelected(it[position])
 
                 }
             })
@@ -122,8 +125,11 @@ class AdminSessionsByUserActivity : AppCompatActivity() {
         view_pager.clipToPadding = false
         view_pager.isSaveFromParentEnabled = false
 
-        view_pager.addOnAdapterChangeListener { viewPager, oldAdapter, newAdapter ->
 
+        btn_new_session.setOnClickListener {
+            RegisterSessionBottomDialog(this ){
+                treinoViewModel.registerSession(it)
+            }.show()
         }
 
     }

@@ -63,5 +63,14 @@
     <string name="sessoes_anteriores">Sessões anteriores</string>
     <string name="avaliacao">Avaliação %1$s</string>
     <string name="sessoes_entre">Sessões realizadas entre o  dia %1$s até %1$s</string>
+    <string name="_01">01</string>
+    <string name="avaliacao_sessao">Qual avaliação você da para esta sessão?</string>
+    <string name="_02">02</string>
+    <string name="_03">03</string>
+    <string name="_04">04</string>
+    <string name="_05">05</string>
+    <string name="observacao_sessao">Deseja adicionar alguma observação para a sessão?</string>
+    <string name="opcional">Opcional</string>
+    <string name="gravar_nconduta">Gravar\nConduta</string>
 
 </resources>
